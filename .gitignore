@@ -1,0 +1,5 @@
+# Installers are published as GitHub release assets, not committed (the Windows one is over GitHub's 100 MB file limit).
+downloads/
+*.exe
+*.apk
+.claude/

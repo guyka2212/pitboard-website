@@ -1,0 +1,347 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>PitBoard</title>
+  <meta name="description" content="PitBoard is a pit display for FTC teams. It shows your next match on the pit laptop and rings a teammate's phone when you need them back in the pit." />
+  <meta name="theme-color" content="#12151c" />
+  <meta property="og:title" content="PitBoard" />
+  <meta property="og:description" content="Next match, checklist and pit alerts for FTC teams. Windows app + Android app." />
+  <meta property="og:type" content="website" />
+  <link rel="icon" href="assets/logo-mark.svg" type="image/svg+xml" />
+  <link rel="preload" href="assets/fonts/rubik-latin.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="stylesheet" href="styles.css" />
+  <script src="main.js" defer></script>
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+
+  <header class="nav">
+    <div class="wrap nav-inner">
+      <a class="brand" href="#top" aria-label="PitBoard home">
+        <img src="assets/logo-mark.svg" alt="" width="32" height="32" />
+        <span>PitBoard</span>
+      </a>
+      <nav aria-label="Main">
+        <ul class="nav-links">
+          <li><a href="#features">Features</a></li>
+          <li><a href="#how">How it works</a></li>
+          <li><a href="#setup">Setup</a></li>
+          <li><a href="#faq">FAQ</a></li>
+        </ul>
+      </nav>
+      <a class="btn btn-small" href="#download">Download</a>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="hero" id="top">
+      <div class="wrap hero-inner">
+        <div class="hero-copy">
+          <p class="eyebrow">For FTC teams · Free</p>
+          <h1>Your whole pit on one&nbsp;screen.</h1>
+          <p class="lede">
+            PitBoard runs on the pit laptop. It shows your next match, your alliance partner and your
+            pre-match checklist. When you need someone back in the pit, one click makes their phone ring
+            at full volume, even when it's locked.
+          </p>
+          <div class="hero-actions">
+            <a class="btn btn-red" data-platform="windows" href="https://github.com/guyka2212/pitboard-website/releases/latest/download/PitBoard-Setup-Windows.exe">
+              <svg class="btn-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 5.5 10.5 4.5v7H3zM11.5 4.4 21 3v8.5h-9.5zM3 12.5h7.5v7L3 18.5zM11.5 12.5H21V21l-9.5-1.4z"/></svg>
+              Download for Windows
+            </a>
+            <a class="btn btn-blue" data-platform="android" href="https://github.com/guyka2212/pitboard-website/releases/latest/download/PitBoard-Android.apk">
+              <svg class="btn-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M17.6 9.48l1.84-3.18a.4.4 0 0 0-.69-.4l-1.86 3.22a11.4 11.4 0 0 0-9.78 0L5.25 5.9a.4.4 0 0 0-.69.4L6.4 9.48A10.8 10.8 0 0 0 1 18h22a10.8 10.8 0 0 0-5.4-8.52zM7 15.25a1.25 1.25 0 1 1 0-2.5 1.25 1.25 0 0 1 0 2.5zm10 0a1.25 1.25 0 1 1 0-2.5 1.25 1.25 0 0 1 0 2.5z"/></svg>
+              Get the Android app
+            </a>
+          </div>
+          <p class="hero-note">Version 1.0.0 · Windows 10/11 and Android 8.0+</p>
+        </div>
+
+        <figure class="hero-visual">
+          <div class="laptop" aria-hidden="true">
+            <div class="laptop-screen">
+              <div class="mock">
+                <div class="mock-top">
+                  <img src="assets/logo-mark.svg" alt="" />
+                  <b>18833</b>
+                  <span class="mock-event">Qualification · Day 1</span>
+                  <span class="mock-live">Updated 12:41</span>
+                </div>
+                <div class="mock-grid">
+                  <div class="mp mp-alliance">
+                    <small>Alliance</small>
+                    <strong>RED</strong>
+                    <em>Station 2</em>
+                  </div>
+                  <div class="mp mp-partner">
+                    <small>Next match partner <span class="pill">Q24 · 2 matches away</span></small>
+                    <div class="mock-teams">
+                      <span class="t t-red">18833</span><span class="t t-red">14290</span>
+                      <span class="vs">vs</span>
+                      <span class="t t-blue">9871</span><span class="t t-blue">22105</span>
+                    </div>
+                  </div>
+                  <div class="mp mp-check">
+                    <small>Checklist <span class="muted">3/5</span></small>
+                    <ul>
+                      <li class="done">Battery charged</li>
+                      <li class="done">Driver hub paired</li>
+                      <li class="done">Intake check</li>
+                      <li>Auto selected</li>
+                      <li>Bumpers on</li>
+                    </ul>
+                  </div>
+                  <div class="mp mp-emerg">
+                    <small>Emergency</small>
+                    <ul>
+                      <li><span>Noa</span><span class="mock-alert ringing">Alert</span></li>
+                      <li><span>Itai</span><span class="mock-ok">Confirmed</span></li>
+                      <li><span>Maya</span><span class="mock-alert">Alert</span></li>
+                    </ul>
+                  </div>
+                  <div class="mp mp-matches">
+                    <small>Our matches</small>
+                    <ol>
+                      <li><span>Q8</span><i class="dot dot-blue"></i><b class="win">W</b></li>
+                      <li><span>Q15</span><i class="dot dot-red"></i><b class="loss">L</b></li>
+                      <li class="next"><span>Q24</span><i class="dot dot-red"></i><b>Next</b></li>
+                      <li><span>Q31</span><i class="dot dot-blue"></i><b></b></li>
+                      <li><span>Q39</span><i class="dot dot-red"></i><b></b></li>
+                    </ol>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="laptop-base"></div>
+          </div>
+
+          <div class="phone" aria-hidden="true">
+            <div class="phone-screen">
+              <div class="phone-flash"></div>
+              <div class="phone-content">
+                <span class="phone-bell">
+                  <svg viewBox="0 0 24 24"><path d="M12 22a2.5 2.5 0 0 0 2.45-2h-4.9A2.5 2.5 0 0 0 12 22zm7-6V11a7 7 0 0 0-5.5-6.84V3.5a1.5 1.5 0 0 0-3 0v.66A7 7 0 0 0 5 11v5l-2 2v1h18v-1z"/></svg>
+                </span>
+                <p class="phone-msg" lang="he" dir="rtl">בואו לפיט עכשיו!</p>
+                <span class="phone-btn" lang="he" dir="rtl">קיבלתי, בדרך!</span>
+              </div>
+            </div>
+          </div>
+          <figcaption class="sr-only">
+            The PitBoard dashboard on a laptop next to a phone showing a full-screen red pit alert.
+          </figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="section" id="features" aria-labelledby="features-title">
+      <div class="wrap">
+        <p class="eyebrow">Features</p>
+        <h2 id="features-title">Everything the pit asks between matches</h2>
+        <p class="section-lede">Enter your team number once. PitBoard finds your current event and keeps itself up to date from the FTC Events API.</p>
+
+        <div class="features">
+          <article class="feature">
+            <span class="feature-icon fi-red"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4h7v7H4zM13 4h7v7h-7zM4 13h7v7H4zM13 13h7v7h-7z" opacity=".35"/><path d="M4 4h7v7H4z"/></svg></span>
+            <h3>Next match at a glance</h3>
+            <p>Your alliance color and station in big type, your partner and opponents, and how many matches are left before you play.</p>
+          </article>
+          <article class="feature">
+            <span class="feature-icon fi-blue"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h14v2H5zM5 9h14v2H5zM5 14h14v2H5zM5 19h9v2H5z"/></svg></span>
+            <h3>All your matches</h3>
+            <p>Every match at the event with partner, opponents, color and result. The next one is highlighted.</p>
+          </article>
+          <article class="feature">
+            <span class="feature-icon fi-red"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 16.2 4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/></svg></span>
+            <h3>Pre-match checklist</h3>
+            <p>Write your own list. It clears itself when the next match changes, so nothing gets skipped.</p>
+          </article>
+          <article class="feature">
+            <span class="feature-icon fi-blue"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 22a2.5 2.5 0 0 0 2.45-2h-4.9A2.5 2.5 0 0 0 12 22zm7-6V11a7 7 0 0 0-5.5-6.84V3.5a1.5 1.5 0 0 0-3 0v.66A7 7 0 0 0 5 11v5l-2 2v1h18v-1z"/></svg></span>
+            <h3>Pit alert</h3>
+            <p>One button per teammate. Their phone rings at full volume and shows a red screen over the lock screen. You see when they confirm.</p>
+          </article>
+          <article class="feature">
+            <span class="feature-icon fi-red"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4h16a1 1 0 0 1 1 1v11a1 1 0 0 1-1 1H8l-4 4V5a1 1 0 0 1 1-1z"/></svg></span>
+            <h3>Chat with phones</h3>
+            <p>Send a message to anyone connected. Offline phones get it when they reconnect, and you see when it's read.</p>
+          </article>
+          <article class="feature">
+            <span class="feature-icon fi-blue"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20V10h3v10zM10.5 20V4h3v16zM17 20v-7h3v7z"/></svg></span>
+            <h3>Scouting built in</h3>
+            <p>Click any team number for np OPR, Auto and Teleop OPR and ranking from FTCScout, or sort every team at the event.</p>
+          </article>
+        </div>
+
+        <div class="callout">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2 1 21h22zm1 15h-2v-2h2zm0-4h-2V9h2z"/></svg>
+          <p><strong>Never miss a queue.</strong> When only two matches are left before yours, PitBoard shows a full-screen alert with sound, flashes the taskbar and sends a Windows notification.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-alt" id="how" aria-labelledby="how-title">
+      <div class="wrap">
+        <p class="eyebrow">How it works</p>
+        <h2 id="how-title">The laptop is the server. Phones just connect.</h2>
+        <p class="section-lede">No accounts and no cloud. Each team runs its own laptop with its own join code.</p>
+
+        <ol class="steps">
+          <li class="step">
+            <span class="step-num">1</span>
+            <h3>Run PitBoard on the pit laptop</h3>
+            <p>Enter your team number. The settings window shows the address phones connect to and a join code.</p>
+          </li>
+          <li class="step">
+            <span class="step-num">2</span>
+            <h3>Teammates connect their phones</h3>
+            <p>They enter the address, their name and the join code in the Android app. Their name appears on the laptop.</p>
+          </li>
+          <li class="step">
+            <span class="step-num">3</span>
+            <h3>Press Alert, they come back</h3>
+            <p>The phone rings and vibrates for up to two minutes. They tap "Got it, on my way!" and the laptop shows it.</p>
+          </li>
+        </ol>
+
+        <div class="network">
+          <div class="net-card">
+            <h3>Same Wi-Fi</h3>
+            <p>Phones use the laptop's local address, like <code>http://192.168.1.20:8765</code>. Works without internet.</p>
+          </div>
+          <div class="net-card">
+            <h3>From anywhere</h3>
+            <p>Forward the port in VS Code and set it to Public. Phones use the tunnel address, like <code>https://abcd1234-8765.euw.devtunnels.ms</code>.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="download" aria-labelledby="download-title">
+      <div class="wrap">
+        <p class="eyebrow">Download</p>
+        <h2 id="download-title">Get PitBoard</h2>
+        <p class="section-lede">Install the Windows app on the pit laptop and the Android app on every teammate's phone.</p>
+
+        <div class="downloads">
+          <article class="dl" data-platform="windows">
+            <header class="dl-head">
+              <img src="assets/windows-icon.svg" alt="" width="56" height="56" />
+              <div>
+                <h3>PitBoard for Windows</h3>
+                <p class="dl-meta">Installer · 106 MB · v1.0.0</p>
+              </div>
+            </header>
+            <ul class="dl-list">
+              <li>Windows 10 or 11, 64-bit</li>
+              <li>Internet for match data (alerts work on local Wi-Fi)</li>
+              <li>You can choose the install folder</li>
+            </ul>
+            <a class="btn btn-red btn-block" href="https://github.com/guyka2212/pitboard-website/releases/latest/download/PitBoard-Setup-Windows.exe">Download installer (.exe)</a>
+            <details class="dl-help">
+              <summary>Windows says it protected your PC?</summary>
+              <p>The installer isn't code-signed yet, so SmartScreen may warn you. Click <b>More info</b>, then <b>Run anyway</b>.</p>
+            </details>
+            <p class="checksum">SHA-256 <code>0fa219e0270cf0e1ca73ee7d1f4dbfd1057b0c073afee2da39391b536a27e6a7</code></p>
+          </article>
+
+          <article class="dl" data-platform="android">
+            <header class="dl-head">
+              <img src="assets/phone-app-icon.svg" alt="" width="56" height="56" />
+              <div>
+                <h3>PitBoard for Android</h3>
+                <p class="dl-meta">APK · 13.6 MB · v1.0.0</p>
+              </div>
+            </header>
+            <ul class="dl-list">
+              <li>Android 8.0 or newer</li>
+              <li>Not on Google Play: install the APK directly</li>
+              <li>The app's interface is in Hebrew</li>
+            </ul>
+            <a class="btn btn-blue btn-block" href="https://github.com/guyka2212/pitboard-website/releases/latest/download/PitBoard-Android.apk">Download APK</a>
+            <details class="dl-help">
+              <summary>How do I install an APK?</summary>
+              <p>Open the downloaded file. Android asks once to allow installs from your browser; allow it, then tap <b>Install</b>.</p>
+            </details>
+            <p class="checksum">SHA-256 <code>a90bc7c56b7a6ef48f9f3c04e40a93000324780173e41cdc8d17edaa0b9cc4e6</code></p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-alt" id="setup" aria-labelledby="setup-title">
+      <div class="wrap">
+        <p class="eyebrow">Setup</p>
+        <h2 id="setup-title">Ready in five minutes</h2>
+
+        <div class="setup">
+          <div class="setup-col">
+            <h3><img src="assets/windows-icon.svg" alt="" width="28" height="28" /> On the laptop</h3>
+            <ol>
+              <li>Install and open PitBoard. The settings window opens on first launch.</li>
+              <li>Enter your <b>team number</b>. Leave season and event code empty, and PitBoard finds your current or next event.</li>
+              <li>Under <b>Emergency button</b>, note the address and the <b>join code</b>. Phones need both.</li>
+              <li>Edit the pre-match checklist, one item per line. Press F11 for full screen.</li>
+            </ol>
+          </div>
+          <div class="setup-col">
+            <h3><img src="assets/phone-app-icon.svg" alt="" width="28" height="28" /> On each phone</h3>
+            <ol>
+              <li>Enter the <b>server address</b>, your <b>name</b> and the <b>join code</b> from the laptop.</li>
+              <li>Tap <b>Test connection</b>. It should answer with your team number.</li>
+              <li>Allow <b>notifications</b>, <b>full-screen alerts</b> and <b>unrestricted battery</b>. The app lists anything missing.</li>
+              <li>Turn on <b>Pit connection</b> and use <b>Test ring</b> to check the volume.</li>
+            </ol>
+          </div>
+        </div>
+        <p class="setup-note">
+          Xiaomi, Samsung and Huawei phones have extra battery settings: on Xiaomi turn on <i>Autostart</i>,
+          on Samsung add PitBoard to <i>Never sleeping apps</i>, on Huawei allow <i>Run in background</i>.
+        </p>
+      </div>
+    </section>
+
+    <section class="section" id="faq" aria-labelledby="faq-title">
+      <div class="wrap wrap-narrow">
+        <p class="eyebrow">FAQ</p>
+        <h2 id="faq-title">Questions</h2>
+        <div class="faq">
+          <details>
+            <summary>Can any FTC team use it?</summary>
+            <p>Yes. Nothing team-specific is built in. Each team enters its own team number on the laptop, and each phone enters its own laptop's address and join code.</p>
+          </details>
+          <details>
+            <summary>Does the alert work if the phone is locked or on silent?</summary>
+            <p>Yes. The alert uses the alarm stream, which rings through silent and vibrate mode, and the red screen opens over the lock screen. Allow Do Not Disturb access in the app if you also want it to ring through total silence.</p>
+          </details>
+          <details>
+            <summary>Do we need internet at the venue?</summary>
+            <p>Match data comes from the FTC Events API, so the laptop needs internet for the schedule. Alerts and chat work on the local Wi-Fi alone.</p>
+          </details>
+          <details>
+            <summary>Is there an iPhone app?</summary>
+            <p>Not yet. The phone app is Android only for now.</p>
+          </details>
+          <details>
+            <summary>Can strangers connect to our laptop?</summary>
+            <p>Only with your join code. You can also remove any phone from the list on the laptop.</p>
+          </details>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="wrap footer-inner">
+      <div class="brand brand-footer">
+        <img src="assets/logo-mark.svg" alt="" width="28" height="28" />
+        <span>PitBoard</span>
+      </div>
+      <p>Made by FTC Team 18833. Not affiliated with <i>FIRST</i>. Match data from the FTC Events API, scouting data from FTCScout.</p>
+      <p><a href="https://github.com/guyka2212/pitboard-website/releases">All releases</a></p>
+    </div>
+  </footer>
+</body>
+</html>
