@@ -3,3 +3,4 @@ downloads/
 *.exe
 *.apk
 .claude/
+counter/data.json

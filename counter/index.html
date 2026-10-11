@@ -130,19 +130,18 @@
       </button>
       <span id="updated"></span>
     </div>
-    <p class="note">Counted by GitHub each time an installer is downloaded from the release. Updates every 2 minutes while this page is open.</p>
+    <p class="note">Counted by GitHub each time an installer is downloaded from the release. GitHub saves the counts here every 10 minutes.</p>
   </main>
 
   <script>
     (function () {
-      var API = 'https://api.github.com/repos/guyka2212/pitboard-website/releases?per_page=100';
-      var CACHE_KEY = 'pitboard-downloads-since-2026-10-11';
+      // Written by the deploy workflow every 10 minutes, so viewers never call GitHub's API themselves.
+      var DATA_URL = 'data.json';
+      var REFRESH_MS = 2 * 60 * 1000;
       // GitHub's counts can't be reset, so the counter starts from these totals (11 Oct 2026, 18:28 UTC).
       // Keyed by asset id: a re-uploaded file gets a new id and counts from 0 on its own.
       var BASELINE = { 606601981: 2 };
       var COUNTING_SINCE = 'Counting since 11 Oct 2026';
-      var REFRESH_MS = 2 * 60 * 1000;
-      var etag = null;
       var nf = new Intl.NumberFormat('en-US');
       var $ = function (id) { return document.getElementById(id); };
 
@@ -154,8 +153,8 @@
 
       function summarize(releases) {
         var totals = { win: 0, and: 0 };
-        var rows = releases.filter(function (r) { return !r.draft; }).map(function (r) {
-          var row = { name: r.name || r.tag_name, date: r.published_at, win: 0, and: 0 };
+        var rows = releases.map(function (r) {
+          var row = { name: r.name, date: r.published_at, win: 0, and: 0 };
           r.assets.forEach(function (a) {
             var p = platformOf(a.name);
             var count = Math.max(0, a.download_count - (BASELINE[a.id] || 0));
@@ -209,53 +208,24 @@
         return d.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
       }
 
-      function saveCache(data) {
-        try { localStorage.setItem(CACHE_KEY, JSON.stringify({ at: Date.now(), data: data })); } catch (e) {}
-      }
-
-      function loadCache() {
-        try { return JSON.parse(localStorage.getItem(CACHE_KEY)); } catch (e) { return null; }
-      }
-
       function load() {
         var button = $('refresh');
         button.disabled = true;
-        var headers = { Accept: 'application/vnd.github+json' };
-        // A 304 answer to a conditional request doesn't count against GitHub's hourly limit.
-        if (etag) headers['If-None-Match'] = etag;
-        return fetch(API, { headers: headers, cache: 'no-store' })
+        return fetch(DATA_URL + '?t=' + Date.now(), { cache: 'no-store' })
           .then(function (res) {
-            if (res.status === 304) return null;
-            if (res.status === 403 || res.status === 429) {
-              var reset = Number(res.headers.get('X-RateLimit-Reset')) * 1000;
-              throw new Error('GitHub limit reached' + (reset ? ', try again after ' + time(new Date(reset)) : ''));
-            }
-            if (!res.ok) throw new Error('GitHub answered ' + res.status);
-            etag = res.headers.get('ETag');
+            if (!res.ok) throw new Error(res.status === 404 ? 'No counts saved yet' : 'Could not load the counts (' + res.status + ')');
             return res.json();
           })
-          .then(function (releases) {
-            if (releases) {
-              var data = summarize(releases);
-              render(data);
-              saveCache(data);
-            }
-            stamp('Updated ' + time(new Date()), false);
+          .then(function (data) {
+            render(summarize(data.releases));
+            stamp('Counts from ' + time(new Date(data.generated_at)), false);
           })
           .catch(function (err) {
-            var cached = loadCache();
-            var message = err.message === 'Failed to fetch' ? 'No connection' : err.message;
-            if (cached && $('total').textContent === '–') {
-              render(cached.data);
-              message += '. Showing numbers from ' + time(new Date(cached.at));
-            }
-            stamp(message, true);
+            stamp(err.message === 'Failed to fetch' ? 'No connection' : err.message, true);
           })
           .then(function () { button.disabled = false; });
       }
 
-      var cached = loadCache();
-      if (cached) render(cached.data);
       $('refresh').addEventListener('click', load);
       document.addEventListener('visibilitychange', function () { if (!document.hidden) load(); });
       setInterval(function () { if (!document.hidden) load(); }, REFRESH_MS);
