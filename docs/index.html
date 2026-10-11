@@ -9,8 +9,8 @@
   <link rel="icon" href="../assets/logo-mark.svg" type="image/svg+xml" />
   <link rel="preload" href="../assets/fonts/rubik-latin.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="stylesheet" href="../styles.css?v=3" />
-  <link rel="stylesheet" href="docs.css?v=1" />
-  <script src="docs.js?v=1" defer></script>
+  <link rel="stylesheet" href="docs.css?v=2" />
+  <script src="docs.js?v=2" defer></script>
 </head>
 <body>
   <a class="skip" href="#content">Skip to content</a>
@@ -65,6 +65,7 @@
         <ul>
           <li><a href="#phone-server">Phone server settings</a></li>
           <li><a href="#connect">Connecting phones</a></li>
+          <li><a href="#port-forwarding">Port forwarding</a></li>
           <li><a href="#alerts">Pit alerts</a></li>
           <li><a href="#chat">Chat</a></li>
         </ul>
@@ -292,17 +293,125 @@
         <h3 id="connect-wifi">On the same Wi-Fi</h3>
         <p>If the phones and the laptop are on the same network, give the phones the local address from the settings window, for example <code>http://192.168.1.20:8765</code>. This works without internet.</p>
 
-        <h3 id="connect-tunnel">From anywhere, with VS Code</h3>
-        <p>Venue Wi-Fi often blocks devices from reaching each other. A VS Code port forward gives the laptop a public address instead:</p>
+        <h3 id="connect-tunnel">From anywhere</h3>
+        <p>Venue Wi-Fi often blocks devices from reaching each other, and phones on mobile data aren't on the laptop's network at all. VS Code can give the laptop a public <code>https://</code> address that works from anywhere. See <a href="#port-forwarding">Port forwarding</a>.</p>
+      </section>
+
+      <section class="doc-section" id="port-forwarding" aria-labelledby="port-forwarding-h">
+        <h2 id="port-forwarding-h">Port forwarding<a class="anchor" href="#port-forwarding" aria-label="Link to this section">#</a></h2>
+        <p>VS Code's built-in <b>port forwarding</b> creates a secure tunnel to PitBoard's phone server on port <code>8765</code> and gives it a public web address. No router setup is needed.</p>
+
+        <h3 id="pf-before">Before you begin</h3>
+        <ul>
+          <li>A recent version of <a href="https://code.visualstudio.com/" rel="noopener">Visual Studio Code</a> on the pit laptop.</li>
+          <li>A GitHub account. VS Code asks you to sign in the first time you forward a port.</li>
+          <li>PitBoard running on the laptop. Its <a href="#phone-server">phone server settings</a> should say <i>Server running, port open</i>.</li>
+        </ul>
+        <div class="admonition note">
+          <p class="admonition-title"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm1 15h-2v-6h2zm0-8h-2V7h2z"/></svg>Note</p>
+          <p>The address only works while VS Code is open and PitBoard is running. Closing VS Code stops the tunnel.</p>
+        </div>
+
         <ol class="doc-steps">
-          <li><p>Open VS Code on the laptop and go to the <span class="ui">Ports</span> tab.</p></li>
-          <li><p>Click <span class="ui">Forward a Port</span> and enter <b>8765</b>.</p></li>
-          <li><p>Right-click the port, choose <span class="ui">Port Visibility</span>, then <span class="ui">Public</span>.</p></li>
-          <li><p>Give the phones the forwarded address, for example <code>https://abcd1234-8765.euw.devtunnels.ms</code>.</p></li>
+          <li>
+            <p><b>Open VS Code.</b> Any folder or project can be open; port forwarding works the same way.</p>
+          </li>
+          <li>
+            <p><b>Open the Command Palette.</b> Press <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>P</kbd> (or <kbd>F1</kbd>). If you've forwarded a port before, <span class="ui">Forward a Port</span> may already be at the top of the list.</p>
+            <figure class="shot shot-small">
+              <div class="shot-frame">
+                <img src="img/pf-palette.webp" width="608" height="455" alt="The VS Code Command Palette with Forward a Port at the top of the list, highlighted." loading="lazy" />
+              </div>
+              <figcaption>The Command Palette with Forward a Port highlighted</figcaption>
+            </figure>
+          </li>
+          <li>
+            <p><b>Run Forward a Port.</b> Type <code>forward a port</code> to filter the list, select <span class="ui">Forward a Port</span> and press <kbd>Enter</kbd>.</p>
+            <figure class="shot shot-small">
+              <div class="shot-frame">
+                <img src="img/pf-search.webp" width="591" height="96" alt="The Command Palette filtered to forward a port, with Forward a Port selected." loading="lazy" />
+                <span class="hl" style="--x:0.4%;--y:29%;--w:99.2%;--h:25%"></span>
+              </div>
+              <figcaption>Searching for the command</figcaption>
+            </figure>
+          </li>
+          <li>
+            <p><b>Enter the port number.</b> Type <code>8765</code> and press <kbd>Enter</kbd>. The <span class="ui">Ports</span> panel opens at the bottom of the window.</p>
+            <figure class="shot shot-small">
+              <div class="shot-frame">
+                <img src="img/pf-prompt.webp" width="613" height="62" alt="The VS Code prompt asking for a port number or address." loading="lazy" />
+              </div>
+              <figcaption>The port number prompt</figcaption>
+            </figure>
+            <div class="admonition tip">
+              <p class="admonition-title"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 21h6v-1H9zm3-19a7 7 0 0 0-4 12.74V17a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-2.26A7 7 0 0 0 12 2z"/></svg>Another way</p>
+              <p>Skip the Command Palette: open the <span class="ui">Ports</span> tab in the bottom panel, click <span class="ui">Forward a Port</span>, and type <code>8765</code> straight into the <b>Port</b> column.</p>
+            </div>
+            <figure class="shot shot-small">
+              <div class="shot-frame">
+                <img src="img/pf-ports-empty.webp" width="720" height="115" alt="The empty Ports panel with the Forward a Port button highlighted." loading="lazy" />
+              </div>
+            </figure>
+            <figure class="shot shot-small">
+              <div class="shot-frame">
+                <img src="img/pf-ports-input.webp" width="650" height="90" alt="Typing a port number in the Port column of the Ports panel." loading="lazy" />
+              </div>
+              <figcaption>The Forward a Port button, and typing the port in the Port column</figcaption>
+            </figure>
+          </li>
+          <li>
+            <p><b>Check that the port is forwarded.</b> If asked, sign in with GitHub and allow access. After a moment, port <code>8765</code> appears in the <span class="ui">Ports</span> panel with a forwarded address. Its visibility starts as <b>Private</b>, which means only you can open it after signing in, so phones can't connect yet.</p>
+            <figure class="shot">
+              <div class="shot-frame">
+                <img src="img/pf-private.webp" width="900" height="103" alt="Port 8765 in the Ports panel with a forwarded address (blurred) and Private visibility." loading="lazy" />
+                <span class="pin" style="--x:11.1%;--y:59%">1</span>
+                <span class="pin" style="--x:47.4%;--y:59%">2</span>
+                <span class="pin" style="--x:95%;--y:59%">3</span>
+              </div>
+              <figcaption>Port 8765 forwarded, still Private. The address is blurred here.</figcaption>
+              <ol class="legend">
+                <li><b>Port</b> 8765, PitBoard's phone server.</li>
+                <li><b>Forwarded address.</b> The public address for the phones.</li>
+                <li><b>Visibility</b> is <i>Private</i>, shown with a lock.</li>
+              </ol>
+            </figure>
+          </li>
+          <li>
+            <p><b>Make the port public.</b> Right-click the row for port <code>8765</code>, choose <span class="ui">Port Visibility</span>, then <span class="ui">Public</span>. The <b>Visibility</b> column changes to <i>Public</i> with a globe icon.</p>
+            <figure class="shot">
+              <div class="shot-frame">
+                <img src="img/pf-public.webp" width="900" height="108" alt="Port 8765 with Public visibility and a globe icon." loading="lazy" />
+                <span class="pin" style="--x:46.7%;--y:58.3%">1</span>
+                <span class="pin" style="--x:95%;--y:58.3%">2</span>
+              </div>
+              <figcaption>Visibility changed to Public</figcaption>
+              <ol class="legend">
+                <li><b>Forwarded address.</b> Copy this in the next step.</li>
+                <li><b>Public.</b> Phones can now connect without signing in.</li>
+              </ol>
+            </figure>
+            <div class="admonition warning">
+              <p class="admonition-title"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2 1 21h22zm1 15h-2v-2h2zm0-4h-2V9h2z"/></svg>Warning</p>
+              <p>Anyone who has a public address can open it, with no sign-in. Keep a <a href="#phone-server">join code</a> set in PitBoard so only your team's phones get in, and set the port back to Private or stop forwarding when the event is over.</p>
+            </div>
+          </li>
+          <li>
+            <p><b>Give the address to the phones.</b> Hover over the forwarded address and click the copy icon, or right-click the port and choose <span class="ui">Copy Local Address</span>. Each teammate enters this <code>https://</code> address as the <b>Server address</b> in the phone app, with the join code. See <a href="#phone-setup">Phone setup</a>.</p>
+            <p>To stop sharing, right-click the port and choose <span class="ui">Stop Forwarding Port</span>.</p>
+          </li>
         </ol>
-        <div class="admonition warning">
-          <p class="admonition-title"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2 1 21h22zm1 15h-2v-2h2zm0-4h-2V9h2z"/></svg>Warning</p>
-          <p>If the phone app says the tunnel asks for a sign-in, the port is still <b>Private</b>. Set its visibility to <b>Public</b>.</p>
+
+        <h3 id="pf-troubleshooting">If it doesn't work</h3>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Problem</th><th>What to check</th></tr></thead>
+            <tbody>
+              <tr><td>Test connection fails</td><td>PitBoard must be running on the laptop. The <b>Running Process</b> column stays empty when nothing is listening on port 8765.</td></tr>
+              <tr><td>The phone asks for a sign-in</td><td>The port is still Private. Repeat step 6.</td></tr>
+              <tr><td>No Public option</td><td>Your account or organization may not allow public ports. Try another GitHub account, or connect over the <a href="#connect-wifi">same Wi-Fi</a>.</td></tr>
+              <tr><td>It stopped working</td><td>VS Code was closed or the laptop went to sleep. Open VS Code and forward the port again. If the address changed, enter the new one on the phones.</td></tr>
+            </tbody>
+          </table>
         </div>
       </section>
 
@@ -312,13 +421,13 @@
 
         <figure class="shot shot-narrow">
           <div class="shot-frame">
-            <img src="img/emergency.webp" width="728" height="496" alt="The Emergency panel with three phones: Noa confirmed, Itai with two unread messages, Maya offline." loading="lazy" />
-            <span class="pin" style="--x:92.4%;--y:32.7%">1</span>
-            <span class="pin" style="--x:62%;--y:11.5%">2</span>
-            <span class="pin" style="--x:27.5%;--y:39.7%">3</span>
-            <span class="pin" style="--x:62.1%;--y:69%">4</span>
-            <span class="pin" style="--x:38.5%;--y:84.9%">5</span>
-            <span class="pin" style="--x:96%;--y:79%">6</span>
+            <img src="img/emergency.webp" width="728" height="386" alt="The Emergency panel with two phones: Guy, who confirmed the alert and has two unread messages, and Yoav, who is offline." loading="lazy" />
+            <span class="pin" style="--x:92.4%;--y:42%">1</span>
+            <span class="pin" style="--x:62.5%;--y:14.8%">2</span>
+            <span class="pin" style="--x:26.5%;--y:51%">3</span>
+            <span class="pin" style="--x:62.1%;--y:59.6%">4</span>
+            <span class="pin" style="--x:38.5%;--y:80%">5</span>
+            <span class="pin" style="--x:96.2%;--y:80%">6</span>
           </div>
           <figcaption>The Emergency panel</figcaption>
           <ol class="legend">
@@ -345,13 +454,13 @@
 
         <figure class="shot">
           <div class="shot-frame">
-            <img src="img/chat.webp" width="1800" height="1322" alt="The chat window: the list of phones on the left, a conversation with Itai on the right, and the message box." loading="lazy" />
-            <span class="hl" style="--x:2.2%;--y:9.7%;--w:22.6%;--h:18.1%"></span>
-            <span class="pin" style="--x:24.8%;--y:27.8%">1</span>
-            <span class="pin" style="--x:64.2%;--y:19.2%">2</span>
-            <span class="pin" style="--x:40.3%;--y:28.5%">3</span>
-            <span class="pin" style="--x:25.6%;--y:89.9%">4</span>
-            <span class="pin" style="--x:98.6%;--y:84.5%">5</span>
+            <img src="img/chat.webp" width="1800" height="1322" alt="The chat window: the list of phones on the left, a conversation with Guy on the right, and the message box." loading="lazy" />
+            <span class="hl" style="--x:2.2%;--y:9.8%;--w:22.6%;--h:11.6%"></span>
+            <span class="pin" style="--x:24.8%;--y:21.4%">1</span>
+            <span class="pin" style="--x:64.5%;--y:19.1%">2</span>
+            <span class="pin" style="--x:43.5%;--y:28.4%">3</span>
+            <span class="pin" style="--x:26.1%;--y:89.9%">4</span>
+            <span class="pin" style="--x:97.6%;--y:87.8%">5</span>
           </div>
           <figcaption>A conversation with one phone</figcaption>
           <ol class="legend legend-cols">
@@ -391,7 +500,7 @@
           <table>
             <thead><tr><th>Field</th><th>What to enter</th></tr></thead>
             <tbody>
-              <tr><td>Server address</td><td>On the same Wi-Fi, the local address, like <code>http://192.168.1.20:8765</code>. From anywhere, the VS Code address, like <code>https://abcd1234-8765.euw.devtunnels.ms</code>. You can leave out <code>https://</code>.</td></tr>
+              <tr><td>Server address</td><td>On the same Wi-Fi, the local address, like <code>http://192.168.1.20:8765</code>. From anywhere, the <a href="#port-forwarding">forwarded address</a>, like <code>https://abcd1234-8765.euw.devtunnels.ms</code>. You can leave out <code>https://</code>.</td></tr>
               <tr><td>Name</td><td>Your name as it should appear on the laptop, up to 40 characters.</td></tr>
               <tr><td>Join code</td><td>The join code from the laptop. Leave it empty if the laptop has none.</td></tr>
             </tbody>
@@ -452,8 +561,8 @@
         <h3 id="ts-connect">The phone can't connect</h3>
         <ul>
           <li>Check that the settings window on the laptop says <i>Server running, port open</i>.</li>
-          <li>On Wi-Fi, check that the phone and the laptop are on the same network, and that Windows Firewall allowed PitBoard. Venue Wi-Fi often blocks this; use <a href="#connect-tunnel">VS Code</a> instead.</li>
-          <li>With VS Code, check that the port's visibility is <b>Public</b>.</li>
+          <li>On Wi-Fi, check that the phone and the laptop are on the same network, and that Windows Firewall allowed PitBoard. Venue Wi-Fi often blocks this; use <a href="#port-forwarding">port forwarding</a> instead.</li>
+          <li>With VS Code, check that the port's visibility is <b>Public</b>. See <a href="#pf-troubleshooting">Port forwarding: if it doesn't work</a>.</li>
         </ul>
 
         <h3 id="ts-code">"Wrong join code"</h3>
