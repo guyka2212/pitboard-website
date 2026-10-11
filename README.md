@@ -32,3 +32,8 @@ Then update the version, file sizes and SHA-256 checksums in `index.html` and pu
 ```bash
 npx serve .
 ```
+
+## Changing the styles or script
+
+Browsers cache `styles.css` and `main.js`. After changing either one, raise the `?v=` number on its
+link in `index.html` (for example `styles.css?v=2` → `styles.css?v=3`) so visitors get the new file.
