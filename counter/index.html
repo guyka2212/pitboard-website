@@ -9,57 +9,52 @@
   <link rel="icon" href="../assets/logo-mark.svg" type="image/svg+xml" />
   <link rel="stylesheet" href="../styles.css?v=3" />
   <style>
-    .counter { width: min(880px, 100% - 32px); margin: 0 auto; padding: 48px 0 72px; }
-    .counter-head { display: flex; align-items: center; gap: 14px; }
-    .counter-head img { width: 44px; height: 44px; }
-    .counter-head h1 { font-size: clamp(1.6rem, 4vw, 2.2rem); }
-    .counter-head p { margin: 2px 0 0; color: var(--muted); font-size: 0.92rem; }
+    .counter { width: min(760px, 100% - 32px); margin: 0 auto; padding: 56px 0 72px; text-align: center; }
+    .counter-head { display: flex; flex-direction: column; align-items: center; gap: 12px; }
+    .counter-head img { width: 52px; height: 52px; }
+    .counter-head h1 { font-size: clamp(1.8rem, 4vw, 2.4rem); }
+    .counter-head p { margin: 0; color: var(--muted); font-size: 0.95rem; }
 
     .total {
-      margin-top: 32px;
-      padding: 32px;
-      border-radius: 18px;
+      position: relative;
+      margin-top: 36px;
+      padding: 40px 24px 36px;
+      border-radius: 20px;
       background: var(--surface);
       border: 1px solid var(--line);
-      position: relative;
       overflow: hidden;
     }
     .total::before {
       content: ''; position: absolute; inset: 0 0 auto; height: 4px;
       background: linear-gradient(90deg, var(--red) 0 50%, var(--blue) 50% 100%);
     }
-    .label { margin: 0; color: var(--muted); font-size: 0.9rem; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; }
+    .label { margin: 0; color: var(--muted); font-size: 0.85rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; }
     .total-value {
-      margin: 6px 0 0;
-      font: 800 clamp(3.6rem, 13vw, 6rem)/1 var(--display);
+      margin: 10px 0 0;
+      font: 800 clamp(4rem, 15vw, 6.5rem)/1 var(--display);
       letter-spacing: -0.03em;
       font-variant-numeric: tabular-nums;
     }
-    .total-sub { margin: 10px 0 0; color: var(--tagline); }
+    .total-sub { margin: 14px 0 0; color: var(--tagline); }
 
     .tiles { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; margin-top: 16px; }
-    .tile { padding: 24px; border-radius: 16px; background: var(--surface); border: 1px solid var(--line); }
-    .tile-name { display: flex; align-items: center; gap: 10px; color: var(--text); font-weight: 600; }
+    .tile {
+      display: flex; flex-direction: column; align-items: center;
+      padding: 28px 20px;
+      border-radius: 18px;
+      background: var(--surface);
+      border: 1px solid var(--line);
+    }
+    .tile-name { display: flex; align-items: center; justify-content: center; gap: 10px; margin: 0; color: var(--text); font-weight: 600; }
     .tile-name img { width: 28px; height: 28px; border-radius: 7px; }
-    .tile-value { margin: 14px 0 0; font: 800 2.6rem/1 var(--display); font-variant-numeric: tabular-nums; }
-    .tile-sub { margin: 8px 0 0; color: var(--muted); font-size: 0.9rem; }
-    .share { margin-top: 16px; height: 8px; border-radius: 4px; background: var(--surface-2); overflow: hidden; }
+    .tile-value { margin: 16px 0 0; font: 800 3rem/1 var(--display); font-variant-numeric: tabular-nums; }
+    .tile-sub { margin: 10px 0 0; color: var(--muted); font-size: 0.9rem; }
+    .share { width: 100%; max-width: 240px; margin-top: 16px; height: 8px; border-radius: 4px; background: var(--surface-2); overflow: hidden; }
     .share span { display: block; height: 100%; width: 0; border-radius: 4px; transition: width 0.4s ease; }
     .tile-win .share span { background: var(--red); }
     .tile-and .share span { background: var(--blue); }
 
-    .releases { margin-top: 32px; }
-    .releases h2 { font-size: 1.15rem; }
-    .table-wrap { margin-top: 12px; overflow-x: auto; border: 1px solid var(--line); border-radius: 12px; }
-    table { width: 100%; border-collapse: collapse; font-size: 0.95rem; }
-    th, td { padding: 12px 16px; text-align: left; border-bottom: 1px solid var(--line); white-space: nowrap; }
-    th { background: var(--surface); color: var(--muted); font-weight: 600; font-size: 0.85rem; }
-    td { color: var(--tagline); font-variant-numeric: tabular-nums; }
-    td.num, th.num { text-align: right; }
-    td.strong { color: var(--text); font-weight: 600; }
-    tr:last-child td { border-bottom: 0; }
-
-    .status { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 16px; margin-top: 24px; color: var(--muted); font-size: 0.9rem; }
+    .status { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 10px 16px; margin-top: 28px; color: var(--muted); font-size: 0.9rem; }
     .status button {
       display: inline-flex; align-items: center; gap: 8px;
       padding: 8px 14px; border-radius: 8px;
@@ -70,13 +65,11 @@
     .status button:disabled { opacity: 0.6; cursor: default; }
     .status svg { width: 16px; height: 16px; fill: currentColor; }
     .status .error { color: #ff8a93; }
-    .note { margin-top: 10px; color: var(--muted); font-size: 0.85rem; }
+    .note { margin: 10px auto 0; max-width: 34em; color: var(--muted); font-size: 0.85rem; }
 
-    @media (max-width: 600px) {
-      .counter { padding-top: 32px; }
-      .total { padding: 24px; }
+    @media (max-width: 560px) {
+      .counter { padding-top: 36px; }
       .tiles { grid-template-columns: 1fr; }
-      th, td { padding: 10px 12px; }
     }
   </style>
 </head>
@@ -91,7 +84,7 @@
     </header>
 
     <section class="total" aria-labelledby="total-label">
-      <p class="label" id="total-label">Total downloads</p>
+      <p class="label" id="total-label">All downloads</p>
       <p class="total-value" id="total" aria-live="polite">–</p>
       <p class="total-sub" id="total-sub">Loading…</p>
     </section>
@@ -99,29 +92,17 @@
     <div class="tiles">
       <section class="tile tile-win" aria-labelledby="win-label">
         <p class="tile-name" id="win-label"><img src="../assets/windows-icon.svg" alt="" />Windows</p>
-        <p class="tile-value" id="win">–</p>
-        <p class="tile-sub" id="win-sub">&nbsp;</p>
-        <div class="share" aria-hidden="true"><span id="win-bar"></span></div>
+        <p class="tile-value" id="windows">–</p>
+        <p class="tile-sub" id="windows-sub">&nbsp;</p>
+        <div class="share" aria-hidden="true"><span id="windows-bar"></span></div>
       </section>
       <section class="tile tile-and" aria-labelledby="and-label">
         <p class="tile-name" id="and-label"><img src="../assets/phone-app-icon.svg" alt="" />Android</p>
-        <p class="tile-value" id="and">–</p>
-        <p class="tile-sub" id="and-sub">&nbsp;</p>
-        <div class="share" aria-hidden="true"><span id="and-bar"></span></div>
+        <p class="tile-value" id="android">–</p>
+        <p class="tile-sub" id="android-sub">&nbsp;</p>
+        <div class="share" aria-hidden="true"><span id="android-bar"></span></div>
       </section>
     </div>
-
-    <section class="releases" aria-labelledby="releases-h">
-      <h2 id="releases-h">By version</h2>
-      <div class="table-wrap">
-        <table>
-          <thead>
-            <tr><th>Version</th><th>Published</th><th class="num">Windows</th><th class="num">Android</th><th class="num">Total</th></tr>
-          </thead>
-          <tbody id="rows"></tbody>
-        </table>
-      </div>
-    </section>
 
     <div class="status">
       <button type="button" id="refresh">
@@ -130,74 +111,36 @@
       </button>
       <span id="updated"></span>
     </div>
-    <p class="note">Counted by GitHub each time an installer is downloaded from the release. GitHub can take a while to add a new download to its count.</p>
+    <p class="note">Each click on a download button on the website adds one. Updates every 30 seconds while this page is open.</p>
   </main>
 
   <script>
     (function () {
-      var API_URL = 'https://api.github.com/repos/guyka2212/pitboard-website/releases?per_page=100';
-      // Saved by the deploy workflow every 10 minutes; used when GitHub's hourly limit for this network is used up.
-      var DATA_URL = 'data.json';
-      var REFRESH_MS = 5 * 60 * 1000;
-      // GitHub's counts can't be reset, so the counter starts from these totals (11 Oct 2026, 18:28 UTC).
-      // Keyed by asset id: a re-uploaded file gets a new id and counts from 0 on its own.
-      // 631494272: one test download on 11 Oct 2026, 18:39 UTC.
-      var BASELINE = { 606601981: 2, 631494272: 1 };
-      var COUNTING_SINCE = 'Counting since 11 Oct 2026';
+      var COUNTS_URL = 'https://rpkaxccjkwimirncyynt.supabase.co/rest/v1/download_counts?select=windows,android,total,updated_at&id=eq.1';
+      var KEY = 'sb_publishable_eESVbxId7MKgmXqoQs8JKA_JHhBIDd-';
+      var REFRESH_MS = 30 * 1000;
       var nf = new Intl.NumberFormat('en-US');
       var $ = function (id) { return document.getElementById(id); };
-
-      function platformOf(name) {
-        if (/\.exe$/i.test(name)) return 'win';
-        if (/\.apk$/i.test(name)) return 'and';
-        return null;
-      }
-
-      function summarize(releases) {
-        var totals = { win: 0, and: 0 };
-        var rows = releases.map(function (r) {
-          var row = { name: r.name, date: r.published_at, win: 0, and: 0 };
-          r.assets.forEach(function (a) {
-            var p = platformOf(a.name);
-            var count = Math.max(0, a.download_count - (BASELINE[a.id] || 0));
-            if (p) { row[p] += count; totals[p] += count; }
-          });
-          return row;
-        });
-        return { totals: totals, rows: rows };
-      }
 
       function percent(part, whole) {
         return whole ? Math.round((part / whole) * 100) : 0;
       }
 
-      function render(data) {
-        var t = data.totals;
-        var all = t.win + t.and;
-        $('total').textContent = nf.format(all);
-        $('total-sub').textContent = COUNTING_SINCE + (data.rows.length === 1 ? ' · 1 version' : ' · ' + data.rows.length + ' versions');
-        ['win', 'and'].forEach(function (k) {
-          $(k).textContent = nf.format(t[k]);
-          $(k + '-sub').textContent = percent(t[k], all) + '% of all downloads';
-          $(k + '-bar').style.width = percent(t[k], all) + '%';
+      function time(d) {
+        return d.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+      }
+
+      function render(row) {
+        $('total').textContent = nf.format(row.total);
+        ['windows', 'android'].forEach(function (k) {
+          $(k).textContent = nf.format(row[k]);
+          $(k + '-sub').textContent = percent(row[k], row.total) + '% of all downloads';
+          $(k + '-bar').style.width = percent(row[k], row.total) + '%';
         });
-        $('rows').replaceChildren.apply($('rows'), data.rows.map(function (r) {
-          var tr = document.createElement('tr');
-          var cells = [
-            [r.name, 'strong'],
-            [r.date ? new Date(r.date).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' }) : '–', ''],
-            [nf.format(r.win), 'num'],
-            [nf.format(r.and), 'num'],
-            [nf.format(r.win + r.and), 'num strong'],
-          ];
-          cells.forEach(function (c) {
-            var td = document.createElement('td');
-            td.textContent = c[0];
-            if (c[1]) td.className = c[1];
-            tr.appendChild(td);
-          });
-          return tr;
-        }));
+        var last = new Date(row.updated_at);
+        $('total-sub').textContent = row.total
+          ? 'Last download ' + last.toLocaleDateString('en-GB', { day: 'numeric', month: 'short' }) + ', ' + time(last)
+          : 'Counting since 11 Oct 2026';
       }
 
       function stamp(text, isError) {
@@ -206,43 +149,18 @@
         el.className = isError ? 'error' : '';
       }
 
-      function time(d) {
-        return d.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-      }
-
-      function fromApi() {
-        return fetch(API_URL, { headers: { Accept: 'application/vnd.github+json' }, cache: 'no-store' })
-          .then(function (res) {
-            if (!res.ok) throw new Error('api ' + res.status);
-            return res.json();
-          })
-          .then(function (releases) {
-            return {
-              at: new Date(),
-              releases: releases.filter(function (r) { return !r.draft; }).map(function (r) {
-                return { name: r.name || r.tag_name, published_at: r.published_at, assets: r.assets };
-              }),
-            };
-          });
-      }
-
-      function fromSaved() {
-        return fetch(DATA_URL + '?t=' + Date.now(), { cache: 'no-store' })
-          .then(function (res) {
-            if (!res.ok) throw new Error(res.status === 404 ? 'No counts saved yet' : 'Could not load the counts (' + res.status + ')');
-            return res.json();
-          })
-          .then(function (data) { return { at: new Date(data.generated_at), releases: data.releases, saved: true }; });
-      }
-
       function load() {
         var button = $('refresh');
         button.disabled = true;
-        return fromApi()
-          .catch(fromSaved)
-          .then(function (data) {
-            render(summarize(data.releases));
-            stamp((data.saved ? 'Counts from ' : 'Updated ') + time(data.at), false);
+        return fetch(COUNTS_URL, { headers: { apikey: KEY }, cache: 'no-store' })
+          .then(function (res) {
+            if (!res.ok) throw new Error('Could not load the counts (' + res.status + ')');
+            return res.json();
+          })
+          .then(function (rows) {
+            if (!rows.length) throw new Error('No counts found');
+            render(rows[0]);
+            stamp('Updated ' + time(new Date()), false);
           })
           .catch(function (err) {
             stamp(err.message === 'Failed to fetch' ? 'No connection' : err.message, true);
@@ -250,13 +168,8 @@
           .then(function () { button.disabled = false; });
       }
 
-      $('refresh').addEventListener('click', function () { load(); });
-      var lastLoad = 0;
-      var loadOnce = load;
-      load = function () { lastLoad = Date.now(); return loadOnce(); };
-      document.addEventListener('visibilitychange', function () {
-        if (!document.hidden && Date.now() - lastLoad > 60 * 1000) load();
-      });
+      $('refresh').addEventListener('click', load);
+      document.addEventListener('visibilitychange', function () { if (!document.hidden) load(); });
       setInterval(function () { if (!document.hidden) load(); }, REFRESH_MS);
       load();
     })();

@@ -3,11 +3,6 @@ name: Deploy site
 on:
   push:
     branches: [main]
-  release:
-    types: [published, edited]
-  # Refreshes the download counts in counter/data.json.
-  schedule:
-    - cron: '*/10 * * * *'
   workflow_dispatch:
 
 permissions:
@@ -27,14 +22,6 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - uses: actions/checkout@v4
-      - name: Save download counts
-        env:
-          GH_TOKEN: ${{ github.token }}
-        run: |
-          gh api "repos/${GITHUB_REPOSITORY}/releases?per_page=100" \
-            --jq '{generated_at: (now | todate), releases: [.[] | select(.draft | not) | {name: (.name // .tag_name), published_at, assets: [.assets[] | {id, name, download_count}]}]}' \
-            > counter/data.json
-          cat counter/data.json
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:

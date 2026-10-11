@@ -17,3 +17,20 @@
   var primary = actions && actions.querySelector('[data-platform="' + platform + '"]');
   if (primary) actions.insertBefore(primary, actions.firstChild);
 })();
+
+// Every download click adds one to the counts in Supabase (see /counter).
+(function () {
+  var COUNT_URL = 'https://rpkaxccjkwimirncyynt.supabase.co/rest/v1/rpc/count_download';
+  var KEY = 'sb_publishable_eESVbxId7MKgmXqoQs8JKA_JHhBIDd-';
+
+  document.querySelectorAll('a[data-count]').forEach(function (link) {
+    link.addEventListener('click', function () {
+      fetch(COUNT_URL, {
+        method: 'POST',
+        keepalive: true,
+        headers: { apikey: KEY, 'Content-Type': 'application/json' },
+        body: JSON.stringify({ platform: link.dataset.count }),
+      }).catch(function () {});
+    });
+  });
+})();
