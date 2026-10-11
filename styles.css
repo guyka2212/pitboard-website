@@ -102,13 +102,19 @@ code {
   -webkit-backdrop-filter: blur(12px);
   border-bottom: 1px solid rgba(46, 52, 64, 0.6);
 }
-.nav-inner { display: flex; align-items: center; gap: 24px; height: 64px; }
+.nav-inner { display: flex; align-items: center; gap: 10px; height: 64px; }
 .brand {
   display: flex; align-items: center; gap: 10px;
   text-decoration: none;
   font-family: var(--display); font-weight: 800; font-size: 1.25rem; letter-spacing: -0.01em;
 }
-.nav nav { margin-left: auto; }
+.nav nav { margin-left: auto; margin-right: 12px; }
+.btn-docs { gap: 8px; }
+.btn-docs .btn-icon { width: 17px; height: 17px; }
+.btn-docs-wide { margin-top: 24px; background: var(--surface); }
+.btn-docs-wide:hover { background: var(--surface-2); }
+.hero-note a { color: var(--tagline); text-underline-offset: 3px; }
+.hero-note a:hover { color: var(--text); }
 .nav-links { display: flex; gap: 4px; list-style: none; margin: 0; padding: 0; }
 .nav-links a {
   display: block; padding: 8px 12px; border-radius: 8px;
@@ -395,7 +401,9 @@ code {
 
 @media (max-width: 720px) {
   .nav-links { display: none; }
-  .nav .btn-small { margin-left: auto; }
+  .nav .btn-docs { margin-left: auto; }
+  .btn-docs span { display: none; }
+  .btn-docs::after { content: 'Docs'; }
   .section { padding: 72px 0; }
   .features, .network, .downloads, .setup { grid-template-columns: 1fr; }
   .hero-actions .btn { flex: 1 1 100%; }

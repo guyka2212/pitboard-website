@@ -1,0 +1,494 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>PitBoard Docs</title>
+  <meta name="description" content="How to install, set up and use PitBoard: the pit laptop dashboard, pit alerts, chat and the Android app." />
+  <meta name="theme-color" content="#12151c" />
+  <link rel="icon" href="../assets/logo-mark.svg" type="image/svg+xml" />
+  <link rel="preload" href="../assets/fonts/rubik-latin.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="stylesheet" href="../styles.css?v=3" />
+  <link rel="stylesheet" href="docs.css?v=1" />
+  <script src="docs.js?v=1" defer></script>
+</head>
+<body>
+  <a class="skip" href="#content">Skip to content</a>
+
+  <header class="nav">
+    <div class="wrap nav-inner">
+      <a class="brand" href="../" aria-label="PitBoard home">
+        <img src="../assets/logo-mark.svg" alt="" width="32" height="32" />
+        <span>PitBoard</span>
+      </a>
+      <nav aria-label="Main">
+        <ul class="nav-links">
+          <li><a href="../">Home</a></li>
+          <li><a href="../#features">Features</a></li>
+          <li><a href="./" aria-current="page">Documentation</a></li>
+        </ul>
+      </nav>
+      <a class="btn btn-small btn-red" href="../#download">Download</a>
+    </div>
+  </header>
+
+  <div class="docs">
+    <div class="docs-bar">
+      <button type="button" aria-expanded="false" aria-controls="docs-side">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h12v2H3z"/></svg>
+        Contents
+      </button>
+      <span aria-live="polite"></span>
+    </div>
+
+    <aside class="docs-side" id="docs-side" aria-label="Documentation">
+      <div class="side-group">
+        <p class="side-title">Getting started</p>
+        <ul>
+          <li><a href="#overview">Overview</a></li>
+          <li><a href="#install-windows">Install on the laptop</a></li>
+          <li><a href="#first-launch">First launch</a></li>
+        </ul>
+      </div>
+      <div class="side-group">
+        <p class="side-title">Laptop app</p>
+        <ul>
+          <li><a href="#dashboard">The dashboard</a></li>
+          <li><a href="#toolbar">Toolbar</a></li>
+          <li><a href="#checklist">Pre-match checklist</a></li>
+          <li><a href="#match-warning">Match warning</a></li>
+          <li><a href="#scouting">Scouting</a></li>
+        </ul>
+      </div>
+      <div class="side-group">
+        <p class="side-title">Phones and alerts</p>
+        <ul>
+          <li><a href="#phone-server">Phone server settings</a></li>
+          <li><a href="#connect">Connecting phones</a></li>
+          <li><a href="#alerts">Pit alerts</a></li>
+          <li><a href="#chat">Chat</a></li>
+        </ul>
+      </div>
+      <div class="side-group">
+        <p class="side-title">Android app</p>
+        <ul>
+          <li><a href="#install-android">Install on a phone</a></li>
+          <li><a href="#phone-setup">Phone setup</a></li>
+          <li><a href="#permissions">Permissions</a></li>
+          <li><a href="#phone-tabs">Phone tabs</a></li>
+        </ul>
+      </div>
+      <div class="side-group">
+        <p class="side-title">Help</p>
+        <ul>
+          <li><a href="#troubleshooting">Troubleshooting</a></li>
+        </ul>
+      </div>
+    </aside>
+
+    <main class="docs-main" id="content">
+      <ol class="crumbs" aria-label="Breadcrumb">
+        <li><a href="../">PitBoard</a></li>
+        <li>Documentation</li>
+      </ol>
+      <h1>PitBoard documentation</h1>
+      <p class="docs-intro">Everything you need to run PitBoard at an event: installing it, setting up the pit laptop, connecting your team's phones and using every part of the screen.</p>
+
+      <!-- Getting started -->
+      <section class="doc-section" id="overview" aria-labelledby="overview-h">
+        <h2 id="overview-h">Overview<a class="anchor" href="#overview" aria-label="Link to this section">#</a></h2>
+        <p>PitBoard has two parts:</p>
+        <ul>
+          <li><b>The Windows app</b> runs on the pit laptop. It shows your next match, your alliance partner, all of your matches and a pre-match checklist, using live data from the FTC Events API.</li>
+          <li><b>The Android app</b> runs on each team member's phone. When the pit needs someone, the laptop makes their phone ring at full volume, even when it's locked or on silent.</li>
+        </ul>
+        <p>The laptop is the server. Phones connect straight to it with an address and a join code. There are no accounts and nothing in the cloud.</p>
+        <div class="admonition note">
+          <p class="admonition-title"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm1 15h-2v-6h2zm0-8h-2V7h2z"/></svg>Note</p>
+          <p>Any FTC team can use PitBoard. Nothing team-specific is built in: you enter your own team number on the laptop, and each phone enters your laptop's address and join code.</p>
+        </div>
+      </section>
+
+      <section class="doc-section" id="install-windows" aria-labelledby="install-windows-h">
+        <h2 id="install-windows-h">Install on the laptop<a class="anchor" href="#install-windows" aria-label="Link to this section">#</a></h2>
+        <p>PitBoard runs on Windows 10 or 11 (64-bit).</p>
+        <ol class="doc-steps">
+          <li><p>Download the installer from the <a href="../#download">download page</a>.</p></li>
+          <li>
+            <p>Open <span class="ui">PitBoard-Setup-Windows.exe</span>. You can choose where to install it.</p>
+            <div class="admonition warning">
+              <p class="admonition-title"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2 1 21h22zm1 15h-2v-2h2zm0-4h-2V9h2z"/></svg>Windows protected your PC</p>
+              <p>The installer isn't code-signed yet, so Windows SmartScreen may stop it. Click <span class="ui">More info</span>, then <span class="ui">Run anyway</span>.</p>
+            </div>
+          </li>
+          <li><p>Start PitBoard from the Start menu or the desktop shortcut.</p></li>
+          <li><p>The first time PitBoard starts, Windows Firewall may ask whether PitBoard can use the network. Allow it, so phones on the same Wi-Fi can connect.</p></li>
+        </ol>
+      </section>
+
+      <section class="doc-section" id="first-launch" aria-labelledby="first-launch-h">
+        <h2 id="first-launch-h">First launch<a class="anchor" href="#first-launch" aria-label="Link to this section">#</a></h2>
+        <p>On first launch the <span class="ui">Settings</span> window opens by itself. The only thing you have to fill in is your team number.</p>
+
+        <figure class="shot shot-narrow">
+          <div class="shot-frame">
+            <img src="img/settings-team.webp" width="1280" height="1620" alt="The Settings window with the team number filled in, the season and event code empty, demo mode, and the checklist." loading="lazy" />
+            <span class="arrow to-r" style="--x:17%;--y:16.4%"><b><em>1</em><span>Your team number</span></b></span>
+            <span class="arrow to-r" style="--x:37%;--y:28.6%"><b><em>2</em><span>Leave empty</span></b></span>
+            <span class="arrow to-r" style="--x:42%;--y:37.2%"><b><em>3</em><span>Leave empty</span></b></span>
+            <span class="arrow to-r" style="--x:37.5%;--y:56.9%"><b><em>4</em><span>Sample data</span></b></span>
+            <span class="arrow to-r" style="--x:58%;--y:78.4%"><b><em>5</em><span>One item per line</span></b></span>
+          </div>
+          <figcaption>The Settings window, top half</figcaption>
+          <ol class="legend">
+            <li><b>Team number.</b> Your FTC team number. It's saved on the laptop, so you only enter it once.</li>
+            <li><b>Season.</b> Leave it empty and PitBoard uses the season FTC calls current.</li>
+            <li><b>Event code.</b> Leave it empty and PitBoard finds your team's current or next event. Fill it in only to follow a different event.</li>
+            <li><b>Demo mode.</b> Shows sample data, so you can try PitBoard before an event. Turn it off for real data.</li>
+            <li><b>Pre-match checklist.</b> Your team's checklist, one item per line. See <a href="#checklist">Pre-match checklist</a>.</li>
+          </ol>
+        </figure>
+
+        <p>Click <span class="ui">Save</span>. PitBoard loads your event and the dashboard appears. Press <kbd>F11</kbd> to switch full screen on and off.</p>
+        <div class="admonition tip">
+          <p class="admonition-title"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 21h6v-1H9zm3-19a7 7 0 0 0-4 12.74V17a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-2.26A7 7 0 0 0 12 2z"/></svg>Tip</p>
+          <p>The settings window also has <b>Refresh every (seconds)</b>, which sets how often PitBoard checks FTC for new results. The default is 60 seconds.</p>
+        </div>
+      </section>
+
+      <!-- Laptop app -->
+      <section class="doc-section" id="dashboard" aria-labelledby="dashboard-h">
+        <h2 id="dashboard-h">The dashboard<a class="anchor" href="#dashboard" aria-label="Link to this section">#</a></h2>
+        <p>This is the main screen. Leave it open on the pit laptop for the whole event.</p>
+
+        <figure class="shot">
+          <div class="shot-frame">
+            <img src="img/dashboard.webp" width="1800" height="1125" alt="The PitBoard dashboard with the alliance box, next match partner, our matches list, checklist and emergency panel." loading="lazy" />
+            <span class="hl" style="--x:0.83%;--y:7.44%;--w:20.14%;--h:36.44%"></span>
+            <span class="hl" style="--x:21.81%;--y:7.44%;--w:50.97%;--h:36.44%"></span>
+            <span class="hl" style="--x:73.61%;--y:7.44%;--w:25.56%;--h:91.2%"></span>
+            <span class="hl" style="--x:0.83%;--y:45.22%;--w:45.76%;--h:53.44%"></span>
+            <span class="hl" style="--x:47.5%;--y:45.22%;--w:25.28%;--h:53.44%"></span>
+            <span class="hl" style="--x:87.36%;--y:0.89%;--w:11.39%;--h:4.44%"></span>
+            <span class="pin" style="--x:19.5%;--y:7.44%">1</span>
+            <span class="pin" style="--x:71.3%;--y:7.44%">2</span>
+            <span class="pin" style="--x:97.7%;--y:7.44%">3</span>
+            <span class="pin" style="--x:45.1%;--y:45.22%">4</span>
+            <span class="pin" style="--x:71.3%;--y:45.22%">5</span>
+            <span class="pin" style="--x:87.36%;--y:5.33%">6</span>
+          </div>
+          <figcaption>The dashboard in demo mode</figcaption>
+          <ol class="legend legend-cols">
+            <li><b>Alliance.</b> Your color, station and field for the next match, in type you can read from across the pit.</li>
+            <li><b>Next match partner.</b> Your partner's number and name, your opponents, and a countdown such as <i>2 matches away</i>, with the match being played right now.</li>
+            <li><b>Our matches.</b> Every match you have at the event, with partner, opponents, field and result. The next one has an orange outline.</li>
+            <li><b>Checklist.</b> The pre-match checklist. Tap items as you do them.</li>
+            <li><b>Emergency.</b> The phones that are connected, each with an <span class="ui">Alert</span> button.</li>
+            <li><b>Toolbar.</b> Refresh, scouting, chat and settings.</li>
+          </ol>
+        </figure>
+
+        <h3 id="fields">Fields and the match being played</h3>
+        <p>At events with more than one field, every match shows which field it's on: in the alliance box, the next match header, each row of the match list and the match warning. At single-field events the field isn't shown.</p>
+        <p>While one of your matches is being played, the next match panel adds a <b>Playing now</b> line with that match, its color and its field.</p>
+      </section>
+
+      <section class="doc-section" id="toolbar" aria-labelledby="toolbar-h">
+        <h2 id="toolbar-h">Toolbar<a class="anchor" href="#toolbar" aria-label="Link to this section">#</a></h2>
+        <p>The buttons at the top right of the dashboard. The text next to them says when PitBoard last checked FTC for new data.</p>
+        <figure class="shot shot-small">
+          <div class="shot-frame">
+            <img src="img/toolbar.webp" width="680" height="112" alt="The toolbar: refresh, scouting, chat with an unread badge, and settings." loading="lazy" />
+            <span class="pin" style="--x:57.1%;--y:80%">1</span>
+            <span class="pin" style="--x:69.3%;--y:80%">2</span>
+            <span class="pin" style="--x:81.5%;--y:80%">3</span>
+            <span class="pin" style="--x:93.8%;--y:80%">4</span>
+          </div>
+          <ol class="legend">
+            <li><b>Refresh.</b> Checks FTC right away instead of waiting for the next automatic refresh.</li>
+            <li><b>Scouting.</b> Opens the table of every team at the event. See <a href="#scouting">Scouting</a>.</li>
+            <li><b>Chat.</b> Opens the chat with the phones. The red badge counts unread replies. See <a href="#chat">Chat</a>.</li>
+            <li><b>Settings.</b> Opens the settings window.</li>
+          </ol>
+        </figure>
+      </section>
+
+      <section class="doc-section" id="checklist" aria-labelledby="checklist-h">
+        <h2 id="checklist-h">Pre-match checklist<a class="anchor" href="#checklist" aria-label="Link to this section">#</a></h2>
+        <p>The checklist is the list of things your team checks before every match. Click an item to tick it. The counter, for example <b>3/6</b>, shows how many are done.</p>
+        <ul>
+          <li><b>It clears itself</b> whenever the next match changes, so each match starts with an empty list.</li>
+          <li><span class="ui">Reset</span> clears it by hand.</li>
+          <li>To change the items, open <span class="ui">Settings</span> and edit <b>Pre-match checklist</b>, one item per line.</li>
+        </ul>
+      </section>
+
+      <section class="doc-section" id="match-warning" aria-labelledby="match-warning-h">
+        <h2 id="match-warning-h">Match warning<a class="anchor" href="#match-warning" aria-label="Link to this section">#</a></h2>
+        <p>When only two matches are left before yours, PitBoard warns the pit, once per match:</p>
+        <ul>
+          <li>a full-screen alert in your alliance color, with sound</li>
+          <li>a flashing taskbar button, if PitBoard isn't the window in front</li>
+          <li>a Windows notification</li>
+        </ul>
+        <figure class="shot">
+          <div class="shot-frame">
+            <img src="img/match-alert.webp" width="1800" height="1125" alt="A red full-screen warning: 2 matches until ours, Q14, Red, Red1, Field 2, with the partner and opponents, and a Got it button." loading="lazy" />
+            <span class="arrow to-r" style="--x:55.6%;--y:60.8%"><b><em>1</em><span>Stops the sound</span></b></span>
+          </div>
+          <figcaption>The match warning</figcaption>
+          <ol class="legend">
+            <li><b>Got it</b> closes the warning and stops the sound.</li>
+          </ol>
+        </figure>
+      </section>
+
+      <section class="doc-section" id="scouting" aria-labelledby="scouting-h">
+        <h2 id="scouting-h">Scouting<a class="anchor" href="#scouting" aria-label="Link to this section">#</a></h2>
+        <p>Team stats come from <a href="https://ftcscout.org" rel="noopener">FTCScout</a>. No account is needed.</p>
+        <ul>
+          <li><b>Any team number</b> on the screen can be clicked. It shows that team's np OPR, Auto OPR, Teleop OPR, np average and ranking, at this event and for the season, plus its season match history grouped by event.</li>
+          <li><b>The scouting button</b> in the toolbar opens a table of every team at the event. Sort it by ranking, np OPR, Auto OPR, Teleop OPR or np average, and switch between <span class="ui">This event</span> and <span class="ui">Season</span>.</li>
+        </ul>
+        <div class="admonition note">
+          <p class="admonition-title"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm1 15h-2v-6h2zm0-8h-2V7h2z"/></svg>Note</p>
+          <p>FTCScout adds each new game some time after the season starts. Until then PitBoard shows the latest season FTCScout has, and says so.</p>
+        </div>
+      </section>
+
+      <!-- Phones and alerts -->
+      <section class="doc-section" id="phone-server" aria-labelledby="phone-server-h">
+        <h2 id="phone-server-h">Phone server settings<a class="anchor" href="#phone-server" aria-label="Link to this section">#</a></h2>
+        <p>Phones connect to the laptop. Everything they need is at the bottom of the <span class="ui">Settings</span> window, under <b>Emergency button (server for phones)</b>.</p>
+
+        <figure class="shot shot-narrow">
+          <div class="shot-frame">
+            <img src="img/settings-phones.webp" width="1280" height="1620" alt="The Emergency button section of Settings: server status, the addresses to copy, the join code, port, join code field and alert message." loading="lazy" />
+            <span class="hl" style="--x:6.6%;--y:30.6%;--w:86.9%;--h:24.3%"></span>
+            <span class="arrow to-r" style="--x:43%;--y:33.6%"><b><em>1</em><span>Green: ready</span></b></span>
+            <span class="arrow to-r" style="--x:41.5%;--y:46.7%"><b><em>2</em><span>Phone address</span></b></span>
+            <span class="arrow to-r" style="--x:38%;--y:51.5%"><b><em>3</em><span>Join code</span></b></span>
+            <span class="arrow to-r" style="--x:20%;--y:69.6%"><b><em>4</em><span>Change or clear the code</span></b></span>
+            <span class="arrow to-r" style="--x:32%;--y:78.1%"><b><em>5</em><span>Text on the phone</span></b></span>
+            <span class="arrow to-r" style="--x:18.3%;--y:94.8%;--len:96px"><b><em>6</em><span>Save</span></b></span>
+          </div>
+          <figcaption>The Settings window, bottom half</figcaption>
+          <ol class="legend">
+            <li><b>Status.</b> <i>Server running, port open</i> in green means phones can connect.</li>
+            <li><b>Addresses.</b> The addresses phones can use on the same Wi-Fi as the laptop. <span class="ui">Copy</span> copies one. Ignore <code>localhost</code>, which only works on the laptop itself.</li>
+            <li><b>Join code.</b> Phones must enter this code. PitBoard creates a random one the first time it runs.</li>
+            <li><b>Join code field.</b> Change the code here, or clear it to let phones connect without one.</li>
+            <li><b>Alert message.</b> The text the phone shows when you press <span class="ui">Alert</span>.</li>
+            <li><b>Save</b> applies the changes.</li>
+          </ol>
+        </figure>
+        <p>The port is 8765 unless you change it. Change it only if another program already uses that port.</p>
+      </section>
+
+      <section class="doc-section" id="connect" aria-labelledby="connect-h">
+        <h2 id="connect-h">Connecting phones<a class="anchor" href="#connect" aria-label="Link to this section">#</a></h2>
+        <p>There are two ways for a phone to reach the laptop.</p>
+
+        <h3 id="connect-wifi">On the same Wi-Fi</h3>
+        <p>If the phones and the laptop are on the same network, give the phones the local address from the settings window, for example <code>http://192.168.1.20:8765</code>. This works without internet.</p>
+
+        <h3 id="connect-tunnel">From anywhere, with VS Code</h3>
+        <p>Venue Wi-Fi often blocks devices from reaching each other. A VS Code port forward gives the laptop a public address instead:</p>
+        <ol class="doc-steps">
+          <li><p>Open VS Code on the laptop and go to the <span class="ui">Ports</span> tab.</p></li>
+          <li><p>Click <span class="ui">Forward a Port</span> and enter <b>8765</b>.</p></li>
+          <li><p>Right-click the port, choose <span class="ui">Port Visibility</span>, then <span class="ui">Public</span>.</p></li>
+          <li><p>Give the phones the forwarded address, for example <code>https://abcd1234-8765.euw.devtunnels.ms</code>.</p></li>
+        </ol>
+        <div class="admonition warning">
+          <p class="admonition-title"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2 1 21h22zm1 15h-2v-2h2zm0-4h-2V9h2z"/></svg>Warning</p>
+          <p>If the phone app says the tunnel asks for a sign-in, the port is still <b>Private</b>. Set its visibility to <b>Public</b>.</p>
+        </div>
+      </section>
+
+      <section class="doc-section" id="alerts" aria-labelledby="alerts-h">
+        <h2 id="alerts-h">Pit alerts<a class="anchor" href="#alerts" aria-label="Link to this section">#</a></h2>
+        <p>The <b>Emergency</b> panel lists every phone that has connected. Press <span class="ui">Alert</span> and that phone rings at full volume, vibrates and shows a red full-screen message, even when it's locked or on silent.</p>
+
+        <figure class="shot shot-narrow">
+          <div class="shot-frame">
+            <img src="img/emergency.webp" width="728" height="496" alt="The Emergency panel with three phones: Noa confirmed, Itai with two unread messages, Maya offline." loading="lazy" />
+            <span class="pin" style="--x:92.4%;--y:32.7%">1</span>
+            <span class="pin" style="--x:62%;--y:11.5%">2</span>
+            <span class="pin" style="--x:27.5%;--y:39.7%">3</span>
+            <span class="pin" style="--x:62.1%;--y:69%">4</span>
+            <span class="pin" style="--x:38.5%;--y:84.9%">5</span>
+            <span class="pin" style="--x:96%;--y:79%">6</span>
+          </div>
+          <figcaption>The Emergency panel</figcaption>
+          <ol class="legend">
+            <li><b>Alert</b> rings that person's phone.</li>
+            <li><b>Alert everyone</b> rings every connected phone at once.</li>
+            <li><b>Status.</b> <i>Sent</i> with the time, then <i>Confirmed</i> once the person taps "Got it, on my way!" on the phone.</li>
+            <li><b>Chat</b> opens a conversation with that phone. The red number counts unread replies.</li>
+            <li><b>Offline.</b> A grey dot means the phone isn't connected right now, so it can't be alerted.</li>
+            <li><b>Remove.</b> The × removes an offline phone from the list.</li>
+          </ol>
+        </figure>
+
+        <h3 id="alert-phone">What happens on the phone</h3>
+        <ul>
+          <li>The alarm volume goes to maximum for the ring, and back to normal afterwards.</li>
+          <li>It rings and vibrates for up to two minutes. If nobody confirms, it stops but the notification stays.</li>
+          <li>A new alert while one is ringing replaces it.</li>
+        </ul>
+      </section>
+
+      <section class="doc-section" id="chat" aria-labelledby="chat-h">
+        <h2 id="chat-h">Chat<a class="anchor" href="#chat" aria-label="Link to this section">#</a></h2>
+        <p>Open the chat from the toolbar, or with the small chat button next to a phone in the Emergency panel.</p>
+
+        <figure class="shot">
+          <div class="shot-frame">
+            <img src="img/chat.webp" width="1800" height="1322" alt="The chat window: the list of phones on the left, a conversation with Itai on the right, and the message box." loading="lazy" />
+            <span class="hl" style="--x:2.2%;--y:9.7%;--w:22.6%;--h:18.1%"></span>
+            <span class="pin" style="--x:24.8%;--y:27.8%">1</span>
+            <span class="pin" style="--x:64.2%;--y:19.2%">2</span>
+            <span class="pin" style="--x:40.3%;--y:28.5%">3</span>
+            <span class="pin" style="--x:25.6%;--y:89.9%">4</span>
+            <span class="pin" style="--x:98.6%;--y:84.5%">5</span>
+          </div>
+          <figcaption>A conversation with one phone</figcaption>
+          <ol class="legend legend-cols">
+            <li><b>People.</b> Pick who to write to. A green dot means they're connected.</li>
+            <li><b>Your message.</b> Its status shows <i>Waiting</i>, <i>Delivered</i> or <i>Read</i>.</li>
+            <li><b>Replies</b> from the phone.</li>
+            <li><b>Message box.</b> <kbd>Enter</kbd> sends, <kbd>Shift</kbd>+<kbd>Enter</kbd> adds a new line.</li>
+            <li><b>Send.</b></li>
+          </ol>
+        </figure>
+        <ul>
+          <li><b>Offline phones.</b> Messages to a phone that's offline wait, and go out when it reconnects.</li>
+          <li><b>New replies</b> show as a badge and play a short sound, plus a Windows notification when PitBoard isn't in front.</li>
+          <li><b>History</b> on the laptop is kept until PitBoard is closed.</li>
+        </ul>
+      </section>
+
+      <!-- Android app -->
+      <section class="doc-section" id="install-android" aria-labelledby="install-android-h">
+        <h2 id="install-android-h">Install on a phone<a class="anchor" href="#install-android" aria-label="Link to this section">#</a></h2>
+        <p>The phone app needs Android 8.0 or newer. It isn't on Google Play, so you install the APK file directly.</p>
+        <ol class="doc-steps">
+          <li><p>On the phone, open the <a href="../#download">download page</a> and tap <span class="ui">Download APK</span>.</p></li>
+          <li><p>Open the downloaded file. Android asks once to allow installs from your browser. Allow it.</p></li>
+          <li><p>Tap <span class="ui">Install</span>, then <span class="ui">Open</span>.</p></li>
+        </ol>
+        <div class="admonition note">
+          <p class="admonition-title"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm1 15h-2v-6h2zm0-8h-2V7h2z"/></svg>Note</p>
+          <p>The phone app's screens are in Hebrew.</p>
+        </div>
+      </section>
+
+      <section class="doc-section" id="phone-setup" aria-labelledby="phone-setup-h">
+        <h2 id="phone-setup-h">Phone setup<a class="anchor" href="#phone-setup" aria-label="Link to this section">#</a></h2>
+        <p>On first launch the app opens its settings screen. Copy the values from the laptop's <a href="#phone-server">phone server settings</a>.</p>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Field</th><th>What to enter</th></tr></thead>
+            <tbody>
+              <tr><td>Server address</td><td>On the same Wi-Fi, the local address, like <code>http://192.168.1.20:8765</code>. From anywhere, the VS Code address, like <code>https://abcd1234-8765.euw.devtunnels.ms</code>. You can leave out <code>https://</code>.</td></tr>
+              <tr><td>Name</td><td>Your name as it should appear on the laptop, up to 40 characters.</td></tr>
+              <tr><td>Join code</td><td>The join code from the laptop. Leave it empty if the laptop has none.</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <ol class="doc-steps">
+          <li><p>Tap <b>Test connection</b>. It should answer that it's connected to your team's server.</p></li>
+          <li><p>Save, then turn on <b>Pit connection</b>. Your name appears on the laptop within a few seconds.</p></li>
+          <li><p>Tap <b>Test ring</b> to hear the alert and check that the red screen appears.</p></li>
+        </ol>
+      </section>
+
+      <section class="doc-section" id="permissions" aria-labelledby="permissions-h">
+        <h2 id="permissions-h">Permissions<a class="anchor" href="#permissions" aria-label="Link to this section">#</a></h2>
+        <p>The app's settings list anything still missing, each with a button that opens the right system screen.</p>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Permission</th><th>Why it's needed</th></tr></thead>
+            <tbody>
+              <tr><td>Notifications</td><td>The alert is a notification. Without it the phone may ring, but nothing shows on the screen.</td></tr>
+              <tr><td>Full-screen alerts</td><td>Android 14 and newer. Lets the red alert screen open over the lock screen.</td></tr>
+              <tr><td>Battery: unrestricted</td><td>Otherwise Android may cut the connection while the screen is off, and the alert never arrives.</td></tr>
+              <tr><td>Do Not Disturb access</td><td>Optional. The alert already rings through silent and vibrate mode. With this, it also rings through total silence.</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="admonition warning">
+          <p class="admonition-title"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2 1 21h22zm1 15h-2v-2h2zm0-4h-2V9h2z"/></svg>Some phones need more</p>
+          <ul>
+            <li><b>Xiaomi:</b> turn on <i>Autostart</i> for PitBoard.</li>
+            <li><b>Samsung:</b> add PitBoard to <i>Never sleeping apps</i>.</li>
+            <li><b>Huawei:</b> set PitBoard to <i>Manage manually</i>, then allow <i>Run in background</i>.</li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="doc-section" id="phone-tabs" aria-labelledby="phone-tabs-h">
+        <h2 id="phone-tabs-h">Phone tabs<a class="anchor" href="#phone-tabs" aria-label="Link to this section">#</a></h2>
+        <p>The bar at the bottom of the phone app has four tabs:</p>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Tab</th><th>Shows</th></tr></thead>
+            <tbody>
+              <tr><td>Scout</td><td>Every team at the event with np OPR, Auto OPR, Teleop OPR, np average and rank. Tap a column header to sort, again to reverse.</td></tr>
+              <tr><td>Matches</td><td>All of your team's matches, with alliance color, partner, opponents and score. The next match is outlined. The app opens on this tab.</td></tr>
+              <tr><td>Chat</td><td>The conversation with the pit, with quick replies such as <i>On my way!</i> and <i>2 more minutes</i>.</td></tr>
+              <tr><td>Settings</td><td>Connection status, the on/off switch, test ring, permissions and <b>Edit settings</b>.</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>Tap any team in <b>Scout</b> or <b>Matches</b> to see its whole season. Pull down on either tab to refresh. These tabs need internet on the phone.</p>
+      </section>
+
+      <!-- Help -->
+      <section class="doc-section" id="troubleshooting" aria-labelledby="troubleshooting-h">
+        <h2 id="troubleshooting-h">Troubleshooting<a class="anchor" href="#troubleshooting" aria-label="Link to this section">#</a></h2>
+
+        <h3 id="ts-connect">The phone can't connect</h3>
+        <ul>
+          <li>Check that the settings window on the laptop says <i>Server running, port open</i>.</li>
+          <li>On Wi-Fi, check that the phone and the laptop are on the same network, and that Windows Firewall allowed PitBoard. Venue Wi-Fi often blocks this; use <a href="#connect-tunnel">VS Code</a> instead.</li>
+          <li>With VS Code, check that the port's visibility is <b>Public</b>.</li>
+        </ul>
+
+        <h3 id="ts-code">"Wrong join code"</h3>
+        <p>The code on the phone doesn't match the laptop. Copy it again from the laptop's settings window. Letters can be typed in upper or lower case.</p>
+
+        <h3 id="ts-ring">The alert doesn't ring when the screen is off</h3>
+        <p>Set the app's battery use to <b>Unrestricted</b>, and on Xiaomi, Samsung and Huawei phones do the extra step in <a href="#permissions">Permissions</a>. Then use <b>Test ring</b>.</p>
+
+        <h3 id="ts-data">No match data</h3>
+        <ul>
+          <li>The laptop needs internet to reach the FTC Events API. Alerts and chat still work without it.</li>
+          <li>If PitBoard picks the wrong event, enter the <b>Event code</b> in Settings.</li>
+          <li>Turn on <b>Demo mode</b> to check that everything else works.</li>
+        </ul>
+
+        <a class="back-top" href="#content">Back to top ↑</a>
+      </section>
+    </main>
+  </div>
+
+  <dialog class="viewer" aria-label="Screenshot">
+    <button class="viewer-close" type="button" aria-label="Close">×</button>
+    <img alt="" />
+  </dialog>
+
+  <footer class="footer">
+    <div class="wrap footer-inner">
+      <div class="brand brand-footer">
+        <img src="../assets/logo-mark.svg" alt="" width="28" height="28" />
+        <span>PitBoard</span>
+      </div>
+      <p>Not affiliated with <i>FIRST</i>. Match data from the FTC Events API, scouting data from FTCScout.</p>
+      <p><a href="https://github.com/guyka2212/pitboard-website/releases">All releases</a></p>
+      <p class="credit">The tool was created by <strong>Guy Kadosh</strong> from <strong>18833 Megiddo Lions</strong></p>
+    </div>
+  </footer>
+</body>
+</html>

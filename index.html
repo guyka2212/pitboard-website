@@ -11,8 +11,8 @@
   <meta property="og:type" content="website" />
   <link rel="icon" href="assets/logo-mark.svg" type="image/svg+xml" />
   <link rel="preload" href="assets/fonts/rubik-latin.woff2" as="font" type="font/woff2" crossorigin />
-  <link rel="stylesheet" href="styles.css?v=2" />
-  <script src="main.js?v=2" defer></script>
+  <link rel="stylesheet" href="styles.css?v=3" />
+  <script src="main.js?v=3" defer></script>
 </head>
 <body>
   <a class="skip" href="#main">Skip to content</a>
@@ -31,7 +31,11 @@
           <li><a href="#faq">FAQ</a></li>
         </ul>
       </nav>
-      <a class="btn btn-small" href="#download">Download</a>
+      <a class="btn btn-small btn-docs" href="docs/" aria-label="Documentation">
+        <svg class="btn-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 2h9l5 5v13a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2zm8 1.5V8h4.5zM8 12v2h8v-2zm0 4v2h8v-2z"/></svg>
+        <span>Documentation</span>
+      </a>
+      <a class="btn btn-small btn-red" href="#download">Download</a>
     </div>
   </header>
 
@@ -56,7 +60,7 @@
               Get the Android app
             </a>
           </div>
-          <p class="hero-note">Version 1.0.0 · Windows 10/11 and Android 8.0+</p>
+          <p class="hero-note">Version 1.0.0 · Windows 10/11 and Android 8.0+ · <a href="docs/">Read the documentation →</a></p>
         </div>
 
         <figure class="hero-visual">
@@ -300,6 +304,7 @@
           Xiaomi, Samsung and Huawei phones have extra battery settings: on Xiaomi turn on <i>Autostart</i>,
           on Samsung add PitBoard to <i>Never sleeping apps</i>, on Huawei allow <i>Run in background</i>.
         </p>
+        <a class="btn btn-docs-wide" href="docs/">Full step-by-step guide with screenshots →</a>
       </div>
     </section>
 

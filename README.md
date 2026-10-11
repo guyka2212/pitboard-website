@@ -37,3 +37,18 @@ npx serve .
 
 Browsers cache `styles.css` and `main.js`. After changing either one, raise the `?v=` number on its
 link in `index.html` (for example `styles.css?v=2` → `styles.css?v=3`) so visitors get the new file.
+
+## Documentation
+
+`docs/index.html` is the user guide, at `/docs/`. Screenshots live in `docs/img/` as WebP. Notes on
+a screenshot are plain elements inside its `.shot-frame`, positioned in percent of the image:
+
+```html
+<span class="hl" style="--x:10%;--y:20%;--w:30%;--h:15%"></span>   <!-- highlight box -->
+<span class="pin" style="--x:40%;--y:20%">1</span>                  <!-- numbered marker -->
+<span class="arrow to-r" style="--x:17%;--y:16%"><b><em>1</em><span>Label</span></b></span>
+```
+
+`to-r`, `to-l`, `to-t` and `to-b` put the label right, left, above or below the point the arrow
+touches; `--len` sets the arrow length. On phones the labels shrink to their number, so every
+annotated screenshot also gets a numbered `.legend` list underneath.
