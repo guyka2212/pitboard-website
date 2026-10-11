@@ -9,8 +9,8 @@
   <link rel="icon" href="../assets/logo-mark.svg" type="image/svg+xml" />
   <link rel="preload" href="../assets/fonts/rubik-latin.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="stylesheet" href="../styles.css?v=3" />
-  <link rel="stylesheet" href="docs.css?v=2" />
-  <script src="docs.js?v=2" defer></script>
+  <link rel="stylesheet" href="docs.css?v=3" />
+  <script src="docs.js?v=3" defer></script>
 </head>
 <body>
   <a class="skip" href="#content">Skip to content</a>
@@ -48,6 +48,7 @@
           <li><a href="#overview">Overview</a></li>
           <li><a href="#install-windows">Install on the laptop</a></li>
           <li><a href="#first-launch">First launch</a></li>
+          <li><a href="#event-code">Event code and season</a></li>
         </ul>
       </div>
       <div class="side-group">
@@ -135,16 +136,16 @@
           <div class="shot-frame">
             <img src="img/settings-team.webp" width="1280" height="1620" alt="The Settings window with the team number filled in, the season and event code empty, demo mode, and the checklist." loading="lazy" />
             <span class="arrow to-r" style="--x:17%;--y:16.4%"><b><em>1</em><span>Your team number</span></b></span>
-            <span class="arrow to-r" style="--x:37%;--y:28.6%"><b><em>2</em><span>Leave empty</span></b></span>
-            <span class="arrow to-r" style="--x:42%;--y:37.2%"><b><em>3</em><span>Leave empty</span></b></span>
+            <span class="arrow to-r" style="--x:37%;--y:28.6%"><b><em>2</em><span>Season (optional)</span></b></span>
+            <span class="arrow to-r" style="--x:42%;--y:37.2%"><b><em>3</em><span>Event code (optional)</span></b></span>
             <span class="arrow to-r" style="--x:37.5%;--y:56.9%"><b><em>4</em><span>Sample data</span></b></span>
             <span class="arrow to-r" style="--x:58%;--y:78.4%"><b><em>5</em><span>One item per line</span></b></span>
           </div>
           <figcaption>The Settings window, top half</figcaption>
           <ol class="legend">
             <li><b>Team number.</b> Your FTC team number. It's saved on the laptop, so you only enter it once.</li>
-            <li><b>Season.</b> Leave it empty and PitBoard uses the season FTC calls current.</li>
-            <li><b>Event code.</b> Leave it empty and PitBoard finds your team's current or next event. Fill it in only to follow a different event.</li>
+            <li><b>Season.</b> Leave it empty and PitBoard uses the season FTC calls current. See <a href="#event-code">Event code and season</a>.</li>
+            <li><b>Event code.</b> Leave it empty and PitBoard finds your team's current or next event. To choose the event yourself, see <a href="#event-code">Event code and season</a>.</li>
             <li><b>Demo mode.</b> Shows sample data, so you can try PitBoard before an event. Turn it off for real data.</li>
             <li><b>Pre-match checklist.</b> Your team's checklist, one item per line. See <a href="#checklist">Pre-match checklist</a>.</li>
           </ol>
@@ -154,6 +155,36 @@
         <div class="admonition tip">
           <p class="admonition-title"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 21h6v-1H9zm3-19a7 7 0 0 0-4 12.74V17a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-2.26A7 7 0 0 0 12 2z"/></svg>Tip</p>
           <p>The settings window also has <b>Refresh every (seconds)</b>, which sets how often PitBoard checks FTC for new results. The default is 60 seconds.</p>
+        </div>
+      </section>
+
+      <section class="doc-section" id="event-code" aria-labelledby="event-code-h">
+        <h2 id="event-code-h">Event code and season<a class="anchor" href="#event-code" aria-label="Link to this section">#</a></h2>
+        <p>Most of the time you can leave <b>Season</b> and <b>Event code</b> empty. Fill them in when PitBoard shows the wrong event, for example when your team is signed up for more than one, or when you want to follow a specific event.</p>
+        <ol class="doc-steps">
+          <li>
+            <p><b>Open your team's page on FTC Events.</b> Go to <code>ftc-events.firstinspires.org/2025/team/</code> followed by your team number, for example <a href="https://ftc-events.firstinspires.org/2025/team/18833" rel="noopener">ftc-events.firstinspires.org/2025/team/18833</a>. It lists your team's events for that season.</p>
+          </li>
+          <li>
+            <p><b>Click your event.</b> The address of the event page holds both values you need:</p>
+            <figure class="url-anatomy">
+              <div class="url-bar" role="img" aria-label="https://ftc-events.firstinspires.org/2025/ILGBQ3, where 2025 is the season and ILGBQ3 is the event code">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17 9h-1V7a4 4 0 0 0-8 0v2H7a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-9a2 2 0 0 0-2-2zm-7-2a2 2 0 0 1 4 0v2h-4z"/></svg>
+                <span class="url-host">https://ftc-events.firstinspires.org/</span><span class="url-path"><span class="seg"><em>1</em>2025<i>Season</i></span>/<span class="seg"><em>2</em>ILGBQ3<i>Event code</i></span></span>
+              </div>
+              <ol class="legend">
+                <li><b>Season.</b> The year the season starts: the 2025&ndash;2026 season is <code>2025</code>.</li>
+                <li><b>Event code.</b> The letters and digits after the season, here <code>ILGBQ3</code>.</li>
+              </ol>
+            </figure>
+          </li>
+          <li>
+            <p><b>Enter them in PitBoard.</b> Open <span class="ui">Settings</span>, type the season in <b>Season</b> and the code in <b>Event code</b>, then click <span class="ui">Save</span>.</p>
+          </li>
+        </ol>
+        <div class="admonition note">
+          <p class="admonition-title"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm1 15h-2v-6h2zm0-8h-2V7h2z"/></svg>Note</p>
+          <p>Clear both fields again after the event, so PitBoard goes back to finding your team's next event by itself.</p>
         </div>
       </section>
 
@@ -292,6 +323,10 @@
 
         <h3 id="connect-wifi">On the same Wi-Fi</h3>
         <p>If the phones and the laptop are on the same network, give the phones the local address from the settings window, for example <code>http://192.168.1.20:8765</code>. This works without internet.</p>
+        <div class="admonition tip">
+          <p class="admonition-title"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 21h6v-1H9zm3-19a7 7 0 0 0-4 12.74V17a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-2.26A7 7 0 0 0 12 2z"/></svg>Wi-Fi blocking it?</p>
+          <p>Venue and school Wi-Fi often stop devices from reaching each other. Turn on a hotspot on one phone and connect the laptop and the other phones to it. The laptop gets a new local address on the hotspot, so copy it again from the settings window.</p>
+        </div>
 
         <h3 id="connect-tunnel">From anywhere</h3>
         <p>Venue Wi-Fi often blocks devices from reaching each other, and phones on mobile data aren't on the laptop's network at all. VS Code can give the laptop a public <code>https://</code> address that works from anywhere. See <a href="#port-forwarding">Port forwarding</a>.</p>
@@ -560,9 +595,10 @@
 
         <h3 id="ts-connect">The phone can't connect</h3>
         <ul>
-          <li>Check that the settings window on the laptop says <i>Server running, port open</i>.</li>
-          <li>On Wi-Fi, check that the phone and the laptop are on the same network, and that Windows Firewall allowed PitBoard. Venue Wi-Fi often blocks this; use <a href="#port-forwarding">port forwarding</a> instead.</li>
-          <li>With VS Code, check that the port's visibility is <b>Public</b>. See <a href="#pf-troubleshooting">Port forwarding: if it doesn't work</a>.</li>
+          <li>Check that the settings window on the laptop says <i>Server running, port open</i>, and that the phone's join code matches.</li>
+          <li><b>With a local address</b> (<code>http://192.168.…</code>), the phone and the laptop must be on the same network, and Windows Firewall must allow PitBoard.</li>
+          <li><b>With port forwarding</b> (<code>https://…devtunnels.ms</code>), they don't need to be on the same network. The phone can use any Wi-Fi or mobile data. Check that the port's visibility is <b>Public</b>; see <a href="#pf-troubleshooting">Port forwarding: if it doesn't work</a>.</li>
+          <li><b>The Wi-Fi may be blocking it.</b> Venue and school networks often block devices from reaching each other, and some block the tunnel too. Connect the laptop to a phone's hotspot and try again. On the hotspot, phones connected to it can use the laptop's new local address, and port forwarding works for everyone else.</li>
         </ul>
 
         <h3 id="ts-code">"Wrong join code"</h3>
