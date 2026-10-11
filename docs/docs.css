@@ -190,11 +190,14 @@ kbd {
   box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.45), 0 8px 18px rgba(0, 0, 0, 0.5);
 }
 .arrow em {
-  display: inline-grid; place-items: center;
+  display: inline-block;
   width: 18px; height: 18px; margin-right: 6px; vertical-align: -3px;
   border-radius: 50%;
   background: var(--annot-ink); color: var(--annot);
-  font: 800 0.7rem/1 var(--display);
+  font: 800 0.7rem/18px var(--display);
+  font-style: normal;
+  text-align: center;
+  font-variant-numeric: tabular-nums;
 }
 
 /* label to the right, arrow pointing left at (x, y) */
@@ -318,6 +321,7 @@ kbd {
   color: var(--muted);
   font: clamp(0.7rem, 2.4vw, 0.95rem)/1.4 Consolas, 'Cascadia Mono', ui-monospace, monospace;
   flex-wrap: wrap;
+  justify-content: center;
   row-gap: 8px;
 }
 .url-bar .url-host, .url-bar .url-path { white-space: nowrap; }
@@ -325,6 +329,7 @@ kbd {
 .url-bar svg { width: 16px; height: 16px; flex: none; fill: var(--muted); }
 .url-bar .seg {
   position: relative;
+  display: inline-flex; align-items: center; gap: 5px;
   padding: 2px 6px;
   border-radius: 5px;
   background: var(--annot);
@@ -332,11 +337,14 @@ kbd {
   font-weight: 700;
 }
 .url-bar .seg em {
-  display: inline-grid; place-items: center;
-  width: 16px; height: 16px; margin-right: 5px; vertical-align: -2px;
+  display: inline-block;
+  width: 16px; height: 16px;
   border-radius: 50%;
   background: var(--annot-ink); color: var(--annot);
-  font: 800 0.65rem/1 var(--display);
+  font: 800 0.65rem/16px var(--display);
+  font-style: normal;
+  text-align: center;
+  font-variant-numeric: tabular-nums;
 }
 .url-bar .seg i {
   position: absolute; left: 50%; top: calc(100% + 8px);

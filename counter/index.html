@@ -136,7 +136,11 @@
   <script>
     (function () {
       var API = 'https://api.github.com/repos/guyka2212/pitboard-website/releases?per_page=100';
-      var CACHE_KEY = 'pitboard-downloads';
+      var CACHE_KEY = 'pitboard-downloads-since-2026-10-11';
+      // GitHub's counts can't be reset, so the counter starts from these totals (11 Oct 2026, 18:28 UTC).
+      // Keyed by asset id: a re-uploaded file gets a new id and counts from 0 on its own.
+      var BASELINE = { 606601981: 2, 610006021: 6 };
+      var COUNTING_SINCE = 'Counting since 11 Oct 2026';
       var REFRESH_MS = 2 * 60 * 1000;
       var etag = null;
       var nf = new Intl.NumberFormat('en-US');
@@ -154,7 +158,8 @@
           var row = { name: r.name || r.tag_name, date: r.published_at, win: 0, and: 0 };
           r.assets.forEach(function (a) {
             var p = platformOf(a.name);
-            if (p) { row[p] += a.download_count; totals[p] += a.download_count; }
+            var count = Math.max(0, a.download_count - (BASELINE[a.id] || 0));
+            if (p) { row[p] += count; totals[p] += count; }
           });
           return row;
         });
@@ -169,7 +174,7 @@
         var t = data.totals;
         var all = t.win + t.and;
         $('total').textContent = nf.format(all);
-        $('total-sub').textContent = data.rows.length === 1 ? 'Across 1 version' : 'Across ' + data.rows.length + ' versions';
+        $('total-sub').textContent = COUNTING_SINCE + (data.rows.length === 1 ? ' · 1 version' : ' · ' + data.rows.length + ' versions');
         ['win', 'and'].forEach(function (k) {
           $(k).textContent = nf.format(t[k]);
           $(k + '-sub').textContent = percent(t[k], all) + '% of all downloads';
