@@ -130,17 +130,19 @@
       </button>
       <span id="updated"></span>
     </div>
-    <p class="note">Counted by GitHub each time an installer is downloaded from the release. GitHub saves the counts here every 10 minutes.</p>
+    <p class="note">Counted by GitHub each time an installer is downloaded from the release. GitHub can take a while to add a new download to its count.</p>
   </main>
 
   <script>
     (function () {
-      // Written by the deploy workflow every 10 minutes, so viewers never call GitHub's API themselves.
+      var API_URL = 'https://api.github.com/repos/guyka2212/pitboard-website/releases?per_page=100';
+      // Saved by the deploy workflow every 10 minutes; used when GitHub's hourly limit for this network is used up.
       var DATA_URL = 'data.json';
-      var REFRESH_MS = 2 * 60 * 1000;
+      var REFRESH_MS = 5 * 60 * 1000;
       // GitHub's counts can't be reset, so the counter starts from these totals (11 Oct 2026, 18:28 UTC).
       // Keyed by asset id: a re-uploaded file gets a new id and counts from 0 on its own.
-      var BASELINE = { 606601981: 2 };
+      // 631494272: one test download on 11 Oct 2026, 18:39 UTC.
+      var BASELINE = { 606601981: 2, 631494272: 1 };
       var COUNTING_SINCE = 'Counting since 11 Oct 2026';
       var nf = new Intl.NumberFormat('en-US');
       var $ = function (id) { return document.getElementById(id); };
@@ -208,17 +210,39 @@
         return d.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
       }
 
-      function load() {
-        var button = $('refresh');
-        button.disabled = true;
+      function fromApi() {
+        return fetch(API_URL, { headers: { Accept: 'application/vnd.github+json' }, cache: 'no-store' })
+          .then(function (res) {
+            if (!res.ok) throw new Error('api ' + res.status);
+            return res.json();
+          })
+          .then(function (releases) {
+            return {
+              at: new Date(),
+              releases: releases.filter(function (r) { return !r.draft; }).map(function (r) {
+                return { name: r.name || r.tag_name, published_at: r.published_at, assets: r.assets };
+              }),
+            };
+          });
+      }
+
+      function fromSaved() {
         return fetch(DATA_URL + '?t=' + Date.now(), { cache: 'no-store' })
           .then(function (res) {
             if (!res.ok) throw new Error(res.status === 404 ? 'No counts saved yet' : 'Could not load the counts (' + res.status + ')');
             return res.json();
           })
+          .then(function (data) { return { at: new Date(data.generated_at), releases: data.releases, saved: true }; });
+      }
+
+      function load() {
+        var button = $('refresh');
+        button.disabled = true;
+        return fromApi()
+          .catch(fromSaved)
           .then(function (data) {
             render(summarize(data.releases));
-            stamp('Counts from ' + time(new Date(data.generated_at)), false);
+            stamp((data.saved ? 'Counts from ' : 'Updated ') + time(data.at), false);
           })
           .catch(function (err) {
             stamp(err.message === 'Failed to fetch' ? 'No connection' : err.message, true);
@@ -226,8 +250,13 @@
           .then(function () { button.disabled = false; });
       }
 
-      $('refresh').addEventListener('click', load);
-      document.addEventListener('visibilitychange', function () { if (!document.hidden) load(); });
+      $('refresh').addEventListener('click', function () { load(); });
+      var lastLoad = 0;
+      var loadOnce = load;
+      load = function () { lastLoad = Date.now(); return loadOnce(); };
+      document.addEventListener('visibilitychange', function () {
+        if (!document.hidden && Date.now() - lastLoad > 60 * 1000) load();
+      });
       setInterval(function () { if (!document.hidden) load(); }, REFRESH_MS);
       load();
     })();
