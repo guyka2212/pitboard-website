@@ -23,14 +23,28 @@
   var COUNT_URL = 'https://rpkaxccjkwimirncyynt.supabase.co/rest/v1/rpc/count_download';
   var KEY = 'sb_publishable_eESVbxId7MKgmXqoQs8JKA_JHhBIDd-';
 
+  function count(platform) {
+    return fetch(COUNT_URL, {
+      method: 'POST',
+      headers: { apikey: KEY, 'Content-Type': 'application/json' },
+      body: JSON.stringify({ platform: platform }),
+    }).catch(function () {});
+  }
+
   document.querySelectorAll('a[data-count]').forEach(function (link) {
-    link.addEventListener('click', function () {
-      fetch(COUNT_URL, {
-        method: 'POST',
-        keepalive: true,
-        headers: { apikey: KEY, 'Content-Type': 'application/json' },
-        body: JSON.stringify({ platform: link.dataset.count }),
-      }).catch(function () {});
+    link.addEventListener('click', function (e) {
+      // Opening in a new tab keeps this page alive, so the count can go out on its own.
+      if (e.button !== 0 || e.ctrlKey || e.metaKey || e.shiftKey || e.altKey) {
+        count(link.dataset.count);
+        return;
+      }
+      // Starting the download straight away can cancel the request, so send it first.
+      e.preventDefault();
+      var go = function () { window.location.href = link.href; };
+      Promise.race([count(link.dataset.count), new Promise(function (r) { setTimeout(r, 1500); })]).then(go, go);
+    });
+    link.addEventListener('auxclick', function (e) {
+      if (e.button === 1) count(link.dataset.count);
     });
   });
 })();
