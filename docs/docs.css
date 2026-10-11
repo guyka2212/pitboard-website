@@ -350,3 +350,23 @@ kbd {
 @media (max-width: 960px) {
   html { scroll-padding-top: 128px; }
 }
+
+/* numbered boxes: the number sits centered on the box's top edge (or bottom edge with .pin-b) */
+.hl[data-n]::after {
+  content: attr(data-n);
+  position: absolute;
+  left: 50%; top: -1.5px;
+  width: var(--pin); height: var(--pin);
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background: var(--annot);
+  color: var(--annot-ink);
+  font: 800 0.8rem/var(--pin) var(--display);
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+  box-shadow: 0 0 0 3px #12151c, 0 6px 14px rgba(0, 0, 0, 0.6);
+}
+.hl.pin-b::after { top: calc(100% + 1.5px); }
+
+.shot-notes { margin-top: 16px !important; }
+.legend li::before { display: block; text-align: center; line-height: 26px; font-variant-numeric: tabular-nums; }

@@ -9,7 +9,7 @@
   <link rel="icon" href="../assets/logo-mark.svg" type="image/svg+xml" />
   <link rel="preload" href="../assets/fonts/rubik-latin.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="stylesheet" href="../styles.css?v=3" />
-  <link rel="stylesheet" href="docs.css?v=3" />
+  <link rel="stylesheet" href="docs.css?v=4" />
   <script src="docs.js?v=3" defer></script>
 </head>
 <body>
@@ -196,18 +196,12 @@
         <figure class="shot">
           <div class="shot-frame">
             <img src="img/dashboard.webp" width="1800" height="1125" alt="The PitBoard dashboard with the alliance box, next match partner, our matches list, checklist and emergency panel." loading="lazy" />
-            <span class="hl" style="--x:0.83%;--y:7.44%;--w:20.14%;--h:36.44%"></span>
-            <span class="hl" style="--x:21.81%;--y:7.44%;--w:50.97%;--h:36.44%"></span>
-            <span class="hl" style="--x:73.61%;--y:7.44%;--w:25.56%;--h:91.2%"></span>
-            <span class="hl" style="--x:0.83%;--y:45.22%;--w:45.76%;--h:53.44%"></span>
-            <span class="hl" style="--x:47.5%;--y:45.22%;--w:25.28%;--h:53.44%"></span>
-            <span class="hl" style="--x:87.36%;--y:0.89%;--w:11.39%;--h:4.44%"></span>
-            <span class="pin" style="--x:19.5%;--y:7.44%">1</span>
-            <span class="pin" style="--x:71.3%;--y:7.44%">2</span>
-            <span class="pin" style="--x:97.7%;--y:7.44%">3</span>
-            <span class="pin" style="--x:45.1%;--y:45.22%">4</span>
-            <span class="pin" style="--x:71.3%;--y:45.22%">5</span>
-            <span class="pin" style="--x:87.36%;--y:5.33%">6</span>
+            <span class="hl" data-n="1" style="--x:0.83%;--y:7.44%;--w:20.14%;--h:36.44%"></span>
+            <span class="hl" data-n="2" style="--x:21.81%;--y:7.44%;--w:50.97%;--h:36.44%"></span>
+            <span class="hl" data-n="3" style="--x:73.61%;--y:7.44%;--w:25.56%;--h:91.22%"></span>
+            <span class="hl" data-n="4" style="--x:0.83%;--y:45.22%;--w:45.76%;--h:53.44%"></span>
+            <span class="hl" data-n="5" style="--x:47.5%;--y:45.22%;--w:25.28%;--h:53.44%"></span>
+            <span class="hl pin-b" data-n="6" style="--x:87.36%;--y:0.89%;--w:11.39%;--h:4.44%"></span>
           </div>
           <figcaption>The dashboard in demo mode</figcaption>
           <ol class="legend legend-cols">
@@ -231,10 +225,10 @@
         <figure class="shot shot-small">
           <div class="shot-frame">
             <img src="img/toolbar.webp" width="680" height="112" alt="The toolbar: refresh, scouting, chat with an unread badge, and settings." loading="lazy" />
-            <span class="pin" style="--x:57.1%;--y:80%">1</span>
-            <span class="pin" style="--x:69.3%;--y:80%">2</span>
-            <span class="pin" style="--x:81.5%;--y:80%">3</span>
-            <span class="pin" style="--x:93.8%;--y:80%">4</span>
+            <span class="hl pin-b" data-n="1" style="--x:46.47%;--y:14.29%;--w:11.47%;--h:69.64%"></span>
+            <span class="hl pin-b" data-n="2" style="--x:58.68%;--y:14.29%;--w:11.47%;--h:69.64%"></span>
+            <span class="hl pin-b" data-n="3" style="--x:70.88%;--y:14.29%;--w:11.47%;--h:69.64%"></span>
+            <span class="hl pin-b" data-n="4" style="--x:83.24%;--y:14.29%;--w:11.47%;--h:69.64%"></span>
           </div>
           <ol class="legend">
             <li><b>Refresh.</b> Checks FTC right away instead of waiting for the next automatic refresh.</li>
@@ -399,16 +393,14 @@
             <figure class="shot">
               <div class="shot-frame">
                 <img src="img/pf-private.webp" width="900" height="103" alt="Port 8765 in the Ports panel with a forwarded address (blurred) and Private visibility." loading="lazy" />
-                <span class="pin" style="--x:11.1%;--y:59%">1</span>
-                <span class="pin" style="--x:47.4%;--y:59%">2</span>
-                <span class="pin" style="--x:95%;--y:59%">3</span>
+
               </div>
               <figcaption>Port 8765 forwarded, still Private. The address is blurred here.</figcaption>
-              <ol class="legend">
+              <ul class="shot-notes">
                 <li><b>Port</b> 8765, PitBoard's phone server.</li>
-                <li><b>Forwarded address.</b> The public address for the phones.</li>
+                <li><b>Forwarded Address</b> is the public address for the phones.</li>
                 <li><b>Visibility</b> is <i>Private</i>, shown with a lock.</li>
-              </ol>
+              </ul>
             </figure>
           </li>
           <li>
@@ -416,14 +408,13 @@
             <figure class="shot">
               <div class="shot-frame">
                 <img src="img/pf-public.webp" width="900" height="108" alt="Port 8765 with Public visibility and a globe icon." loading="lazy" />
-                <span class="pin" style="--x:46.7%;--y:58.3%">1</span>
-                <span class="pin" style="--x:95%;--y:58.3%">2</span>
+
               </div>
               <figcaption>Visibility changed to Public</figcaption>
-              <ol class="legend">
-                <li><b>Forwarded address.</b> Copy this in the next step.</li>
-                <li><b>Public.</b> Phones can now connect without signing in.</li>
-              </ol>
+              <ul class="shot-notes">
+                <li><b>Visibility</b> is now <i>Public</i>, so phones can connect without signing in.</li>
+                <li>Copy the <b>Forwarded Address</b> in the next step.</li>
+              </ul>
             </figure>
             <div class="admonition warning">
               <p class="admonition-title"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2 1 21h22zm1 15h-2v-2h2zm0-4h-2V9h2z"/></svg>Warning</p>
@@ -457,12 +448,12 @@
         <figure class="shot shot-narrow">
           <div class="shot-frame">
             <img src="img/emergency.webp" width="728" height="386" alt="The Emergency panel with two phones: Guy, who confirmed the alert and has two unread messages, and Yoav, who is offline." loading="lazy" />
-            <span class="pin" style="--x:92.4%;--y:42%">1</span>
-            <span class="pin" style="--x:62.5%;--y:14.8%">2</span>
-            <span class="pin" style="--x:26.5%;--y:51%">3</span>
-            <span class="pin" style="--x:62.1%;--y:59.6%">4</span>
-            <span class="pin" style="--x:38.5%;--y:80%">5</span>
-            <span class="pin" style="--x:96.2%;--y:80%">6</span>
+            <span class="hl" data-n="1" style="--x:73.21%;--y:40.16%;--w:20.19%;--h:21.76%"></span>
+            <span class="hl" data-n="2" style="--x:64.01%;--y:6.48%;--w:32.14%;--h:16.58%"></span>
+            <span class="hl" data-n="3" style="--x:29.12%;--y:41.45%;--w:31.32%;--h:19.69%"></span>
+            <span class="hl pin-b" data-n="4" style="--x:61.13%;--y:40.16%;--w:10.99%;--h:21.76%"></span>
+            <span class="hl" data-n="5" style="--x:39.29%;--y:69.95%;--w:13.46%;--h:20.21%"></span>
+            <span class="hl" data-n="6" style="--x:85.99%;--y:69.95%;--w:7.42%;--h:20.21%"></span>
           </div>
           <figcaption>The Emergency panel</figcaption>
           <ol class="legend">
@@ -490,12 +481,11 @@
         <figure class="shot">
           <div class="shot-frame">
             <img src="img/chat.webp" width="1800" height="1322" alt="The chat window: the list of phones on the left, a conversation with Guy on the right, and the message box." loading="lazy" />
-            <span class="hl" style="--x:2.2%;--y:9.8%;--w:22.6%;--h:11.6%"></span>
-            <span class="pin" style="--x:24.8%;--y:21.4%">1</span>
-            <span class="pin" style="--x:64.5%;--y:19.1%">2</span>
-            <span class="pin" style="--x:43.5%;--y:28.4%">3</span>
-            <span class="pin" style="--x:26.1%;--y:89.9%">4</span>
-            <span class="pin" style="--x:97.6%;--y:87.8%">5</span>
+            <span class="hl pin-b" data-n="1" style="--x:2.22%;--y:9.83%;--w:22.67%;--h:11.35%"></span>
+            <span class="hl" data-n="2" style="--x:65.78%;--y:14.52%;--w:31.89%;--h:9.23%"></span>
+            <span class="hl" data-n="3" style="--x:27.22%;--y:23.75%;--w:14.67%;--h:18.46%"></span>
+            <span class="hl" data-n="4" style="--x:26.78%;--y:84.87%;--w:66.0%;--h:9.98%"></span>
+            <span class="hl" data-n="5" style="--x:92.78%;--y:87.59%;--w:5.22%;--h:7.26%"></span>
           </div>
           <figcaption>A conversation with one phone</figcaption>
           <ol class="legend legend-cols">
