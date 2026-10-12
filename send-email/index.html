@@ -238,7 +238,9 @@
         }
         var body = message + '\n\n--\nYou get this because you signed up for PitBoard updates at ' + SIGNUP_URL +
           '\nTo stop getting them, reply with "unsubscribe".';
-        var url = 'https://mail.google.com/mail/u/0/?fs=1&tf=cm' +
+        // authuser opens the draft in the Gmail account that matches the signed-in admin,
+        // not just the browser's first Google account.
+        var url = 'https://mail.google.com/mail/?authuser=' + encodeURIComponent(me) + '&fs=1&tf=cm' +
           '&to=' + encodeURIComponent(me) +
           '&bcc=' + encodeURIComponent(group.map(function (s) { return s.email; }).join(',')) +
           '&su=' + encodeURIComponent(subject) +
