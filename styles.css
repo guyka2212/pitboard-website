@@ -429,3 +429,61 @@ code {
   .nav .btn-small { padding: 8px 12px; }
   .btn-docs .btn-icon { display: none; }
 }
+
+/* Report button and form */
+.btn-report { gap: 8px; }
+.btn-report .btn-icon { width: 16px; height: 16px; }
+button.btn { cursor: pointer; font-family: inherit; color: var(--text); }
+.nav .btn-docs + .btn-report { margin-left: 0; }
+
+.report {
+  width: min(560px, 100% - 32px);
+  max-height: calc(100vh - 32px);
+  padding: 0;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: var(--surface);
+  color: var(--text);
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.7);
+}
+.report::backdrop { background: rgba(8, 10, 14, 0.7); backdrop-filter: blur(3px); }
+.report-form { display: grid; gap: 14px; padding: 24px; }
+.report-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.report-head h2 { font-size: 1.4rem; }
+.report-close {
+  width: 36px; height: 36px; border-radius: 50%;
+  border: 1px solid var(--line); background: var(--surface-2); color: var(--text);
+  font-size: 1.3rem; line-height: 1; cursor: pointer;
+}
+.report-intro { margin: -4px 0 0; color: var(--muted); font-size: 0.93rem; }
+.report-row { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+.report label { display: grid; gap: 6px; color: var(--tagline); font-size: 0.9rem; font-weight: 600; }
+.report-label em { color: var(--muted); font-style: normal; font-weight: 400; }
+.report input, .report select, .report textarea {
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px solid var(--line);
+  background: var(--bg);
+  color: var(--text);
+  font-family: inherit; font-size: 0.95rem; line-height: 1.4;
+}
+.report textarea { resize: vertical; min-height: 120px; }
+.report input:focus, .report select:focus, .report textarea:focus { outline: 2px solid var(--accent); outline-offset: 0; border-color: transparent; }
+.report-status { margin: 0; min-height: 1.4em; font-size: 0.9rem; color: var(--muted); }
+.report-status.ok { color: var(--green); }
+.report-status.error { color: #ff8a93; }
+.report-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 18px; }
+.report-mailto { color: var(--tagline); font-size: 0.9rem; }
+
+@media (max-width: 720px) {
+  .btn-report span { display: none; }
+  .btn-report { padding-inline: 10px; }
+}
+@media (max-width: 520px) {
+  .report-row { grid-template-columns: 1fr; }
+  .report-form { padding: 20px; }
+}
+@media (max-width: 420px) {
+  .nav .brand span { display: none; }
+}
