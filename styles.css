@@ -426,18 +426,29 @@ code {
 }
 
 @media (max-width: 420px) {
-  .nav .btn-small { padding: 8px 12px; }
+  .nav-inner { gap: 6px; }
+  .nav .btn-small { padding: 8px 10px; }
   .btn-docs .btn-icon { display: none; }
+  .nav .btn-report, .nav .btn-updates, .nav .btn-suggest { padding-inline: 8px; }
+}
+@media (max-width: 360px) {
+  /* the hero links to the docs too */
+  .nav .btn-docs { display: none; }
+  .nav .btn-docs + .btn { margin-left: auto; }
 }
 
 /* Report button */
-.btn-report, .btn-updates { gap: 8px; }
-.btn-report .btn-icon, .btn-updates .btn-icon { width: 16px; height: 16px; }
+.btn-report, .btn-updates, .btn-suggest { gap: 8px; }
+.btn-report .btn-icon, .btn-updates .btn-icon, .btn-suggest .btn-icon { width: 16px; height: 16px; }
 button.btn { cursor: pointer; font-family: inherit; color: var(--text); }
 
-@media (max-width: 720px) {
-  .btn-report span, .btn-updates span { display: none; }
-  .btn-report, .btn-updates { padding-inline: 10px; }
+@media (max-width: 1140px) {
+  .btn-report span, .btn-updates span, .btn-suggest span { display: none; }
+  .btn-report, .btn-updates, .btn-suggest { padding-inline: 10px; }
+}
+@media (max-width: 960px) {
+  .nav-links { display: none; }
+  .nav nav + .btn { margin-left: auto; }
 }
 @media (max-width: 420px) {
   .nav .brand span { display: none; }
