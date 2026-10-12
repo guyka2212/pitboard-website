@@ -67,6 +67,22 @@
     .status .error { color: #ff8a93; }
     .note { margin: 10px auto 0; max-width: 34em; color: var(--muted); font-size: 0.85rem; }
 
+    .goals { margin-top: 16px; padding: 28px 28px 24px; border-radius: 18px; background: var(--surface); border: 1px solid var(--line); }
+    .goals h2 { font-size: 1.1rem; }
+    .goal { margin-top: 20px; text-align: left; }
+    .goal-head { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+    .goal-name { display: flex; align-items: center; gap: 8px; color: var(--text); font-weight: 600; }
+    .goal-name i { width: 10px; height: 10px; border-radius: 3px; flex: none; }
+    .goal-nums { color: var(--tagline); font-variant-numeric: tabular-nums; }
+    .goal-nums b { color: var(--text); font-weight: 700; }
+    .goal-bar { margin-top: 8px; height: 12px; border-radius: 6px; background: var(--surface-2); overflow: hidden; }
+    .goal-bar span { display: block; height: 100%; width: 0; border-radius: 6px; transition: width 0.5s ease; }
+    .goal-sub { margin: 6px 0 0; color: var(--muted); font-size: 0.85rem; }
+    .goal-sub.done { color: var(--green); }
+    .goal-win i, .goal-win .goal-bar span { background: var(--red); }
+    .goal-and i, .goal-and .goal-bar span { background: var(--blue); }
+    .goal-all i, .goal-all .goal-bar span { background: linear-gradient(90deg, var(--red), var(--blue)); }
+
     @media (max-width: 560px) {
       .counter { padding-top: 36px; }
       .tiles { grid-template-columns: 1fr; }
@@ -104,6 +120,34 @@
       </section>
     </div>
 
+    <section class="goals" aria-labelledby="goals-title">
+      <h2 id="goals-title">Progress to target</h2>
+      <div class="goal goal-win" id="goal-windows">
+        <div class="goal-head">
+          <span class="goal-name"><i aria-hidden="true"></i>Windows</span>
+          <span class="goal-nums" id="goal-windows-nums">–</span>
+        </div>
+        <div class="goal-bar" role="progressbar" aria-label="Windows downloads toward the target" aria-valuemin="0" aria-valuemax="100" id="goal-windows-bar"><span></span></div>
+        <p class="goal-sub" id="goal-windows-sub">&nbsp;</p>
+      </div>
+      <div class="goal goal-and" id="goal-android">
+        <div class="goal-head">
+          <span class="goal-name"><i aria-hidden="true"></i>Android</span>
+          <span class="goal-nums" id="goal-android-nums">–</span>
+        </div>
+        <div class="goal-bar" role="progressbar" aria-label="Android downloads toward the target" aria-valuemin="0" aria-valuemax="100" id="goal-android-bar"><span></span></div>
+        <p class="goal-sub" id="goal-android-sub">&nbsp;</p>
+      </div>
+      <div class="goal goal-all" id="goal-total">
+        <div class="goal-head">
+          <span class="goal-name"><i aria-hidden="true"></i>All downloads</span>
+          <span class="goal-nums" id="goal-total-nums">–</span>
+        </div>
+        <div class="goal-bar" role="progressbar" aria-label="All downloads downloads toward the target" aria-valuemin="0" aria-valuemax="100" id="goal-total-bar"><span></span></div>
+        <p class="goal-sub" id="goal-total-sub">&nbsp;</p>
+      </div>
+    </section>
+
     <div class="status">
       <button type="button" id="refresh">
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17.65 6.35A7.96 7.96 0 0 0 12 4a8 8 0 1 0 7.73 10h-2.08A6 6 0 1 1 12 6c1.66 0 3.14.69 4.22 1.78L13 11h7V4z"/></svg>
@@ -116,7 +160,7 @@
 
   <script>
     (function () {
-      var COUNTS_URL = 'https://rpkaxccjkwimirncyynt.supabase.co/rest/v1/download_counts?select=windows,android,total,updated_at&id=eq.1';
+      var COUNTS_URL = 'https://rpkaxccjkwimirncyynt.supabase.co/rest/v1/download_counts?select=windows,android,total,updated_at,target_windows,target_android,target_total&id=eq.1';
       var KEY = 'sb_publishable_eESVbxId7MKgmXqoQs8JKA_JHhBIDd-';
       var REFRESH_MS = 30 * 1000;
       var nf = new Intl.NumberFormat('en-US');
@@ -130,6 +174,24 @@
         return d.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
       }
 
+      function renderGoal(key, count, target) {
+        var box = $('goal-' + key);
+        box.hidden = !target;
+        if (!target) return;
+        var pct = Math.min(100, Math.round((count / target) * 100));
+        $('goal-' + key + '-nums').innerHTML = '';
+        var b = document.createElement('b');
+        b.textContent = nf.format(count);
+        $('goal-' + key + '-nums').append(b, ' of ' + nf.format(target) + ' · ' + pct + '%');
+        var bar = $('goal-' + key + '-bar');
+        bar.setAttribute('aria-valuenow', pct);
+        bar.firstElementChild.style.width = pct + '%';
+        var sub = $('goal-' + key + '-sub');
+        var left = target - count;
+        sub.textContent = left > 0 ? nf.format(left) + ' to go' : 'Target reached';
+        sub.className = 'goal-sub' + (left > 0 ? '' : ' done');
+      }
+
       function render(row) {
         $('total').textContent = nf.format(row.total);
         ['windows', 'android'].forEach(function (k) {
@@ -137,6 +199,7 @@
           $(k + '-sub').textContent = percent(row[k], row.total) + '% of all downloads';
           $(k + '-bar').style.width = percent(row[k], row.total) + '%';
         });
+        ['windows', 'android', 'total'].forEach(function (k) { renderGoal(k, row[k], row['target_' + k]); });
         var last = new Date(row.updated_at);
         $('total-sub').textContent = row.total
           ? 'Last download ' + last.toLocaleDateString('en-GB', { day: 'numeric', month: 'short' }) + ', ' + time(last)
