@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>PitBoard Updates</title>
+  <meta name="description" content="Get an email when a new version of PitBoard is out." />
+  <meta name="theme-color" content="#12151c" />
+  <link rel="icon" href="../assets/logo-mark.svg" type="image/svg+xml" />
+  <link rel="preload" href="../assets/fonts/rubik-latin.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="stylesheet" href="../styles.css?v=8" />
+  <script src="../report.js?v=2" defer></script>
+  <style>
+    .notify { display: grid; place-items: center; min-height: calc(100vh - 64px - 120px); padding: 56px 0 72px; }
+    .notify-card {
+      width: min(520px, 100%);
+      padding: 40px 32px 32px;
+      border-radius: 20px;
+      background: var(--surface);
+      border: 1px solid var(--line);
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .notify-card::before {
+      content: ''; position: absolute; inset: 0 0 auto; height: 4px;
+      background: linear-gradient(90deg, var(--red) 0 50%, var(--blue) 50% 100%);
+    }
+    .notify-icon {
+      display: grid; place-items: center;
+      width: 64px; height: 64px; margin: 0 auto 20px;
+      border-radius: 18px;
+      background: var(--blue-soft);
+      color: #8fb0ff;
+    }
+    .notify-icon svg { width: 32px; height: 32px; fill: currentColor; }
+    .notify-card h1 { font-size: clamp(1.7rem, 4vw, 2.2rem); }
+    .notify-card > p { margin: 12px 0 0; color: var(--tagline); }
+    .notify-form { display: flex; gap: 10px; margin-top: 28px; }
+    .notify-form input {
+      flex: 1; min-width: 0;
+      padding: 13px 14px;
+      border-radius: 10px;
+      border: 1px solid var(--line);
+      background: var(--bg);
+      color: var(--text);
+      font-family: inherit; font-size: 1rem;
+    }
+    .notify-form input:focus { outline: 2px solid var(--accent); outline-offset: 0; border-color: transparent; }
+    .notify-form .btn { flex: none; }
+    .notify-status { min-height: 1.5em; margin: 14px 0 0; font-size: 0.95rem; color: var(--muted); }
+    .notify-status.ok { color: var(--green); }
+    .notify-status.error { color: #ff8a93; }
+    .notify-note { margin: 18px 0 0; font-size: 0.85rem; color: var(--muted); }
+    @media (max-width: 480px) {
+      .notify-card { padding: 32px 20px 24px; }
+      .notify-form { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip" href="#content">Skip to content</a>
+
+  <header class="nav">
+    <div class="wrap nav-inner">
+      <a class="brand" href="../" aria-label="PitBoard home">
+        <img src="../assets/logo-mark.svg" alt="" width="32" height="32" />
+        <span>PitBoard</span>
+      </a>
+      <nav aria-label="Main">
+        <ul class="nav-links">
+          <li><a href="../">Home</a></li>
+          <li><a href="../#features">Features</a></li>
+          <li><a href="../docs/">Documentation</a></li>
+        </ul>
+      </nav>
+      <a class="btn btn-small btn-report" data-report href="https://mail.google.com/mail/u/0/?fs=1&amp;to=megiddo.lions@gmail.com&amp;su=bug+report+on+pitboard&amp;tf=cm" target="_blank" rel="noopener" aria-label="Report a bug by email">
+        <svg class="btn-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 21V4h9l.4 2H20v10h-7l-.4-2H7v7z"/></svg>
+        <span>Report</span>
+      </a>
+      <a class="btn btn-small btn-red" href="../#download">Download</a>
+    </div>
+  </header>
+
+  <main class="wrap notify" id="content">
+    <section class="notify-card" aria-labelledby="notify-title">
+      <div class="notify-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24"><path d="M12 22a2.5 2.5 0 0 0 2.45-2h-4.9A2.5 2.5 0 0 0 12 22zm7-6V11a7 7 0 0 0-5.5-6.84V3.5a1.5 1.5 0 0 0-3 0v.66A7 7 0 0 0 5 11v5l-2 2v1h18v-1z"/></svg>
+      </div>
+      <h1 id="notify-title">Get PitBoard updates</h1>
+      <p>Leave your email and you'll hear about new versions of the Windows and Android apps.</p>
+      <form class="notify-form" novalidate>
+        <label class="sr-only" for="notify-email">Email</label>
+        <input id="notify-email" name="email" type="email" inputmode="email" autocomplete="email" maxlength="254" placeholder="you@example.com" required />
+        <button type="submit" class="btn btn-blue">Notify me</button>
+      </form>
+      <p class="notify-status" role="status"></p>
+      <p class="notify-note">Only PitBoard updates, no spam. Reply "unsubscribe" to any of them to stop.</p>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="wrap footer-inner">
+      <div class="brand brand-footer">
+        <img src="../assets/logo-mark.svg" alt="" width="28" height="28" />
+        <span>PitBoard</span>
+      </div>
+      <p>Not affiliated with <i>FIRST</i>. Match data from the FTC Events API, scouting data from FTCScout.</p>
+      <p class="credit">The tool was created by <strong>Guy Kadosh</strong> from <strong>18833 Megiddo Lions</strong></p>
+    </div>
+  </footer>
+
+  <script>
+    (function () {
+      var URL = 'https://rpkaxccjkwimirncyynt.supabase.co/rest/v1/subscribers';
+      var KEY = 'sb_publishable_eESVbxId7MKgmXqoQs8JKA_JHhBIDd-';
+      var form = document.querySelector('.notify-form');
+      var input = form.elements.email;
+      var button = form.querySelector('button');
+      var status = document.querySelector('.notify-status');
+
+      function say(text, kind) {
+        status.textContent = text;
+        status.className = 'notify-status' + (kind ? ' ' + kind : '');
+      }
+
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        var email = input.value.trim().toLowerCase();
+        if (!email || !input.checkValidity() || !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) {
+          say('Enter a valid email address.', 'error');
+          input.focus();
+          return;
+        }
+        button.disabled = true;
+        say('Saving…');
+        fetch(URL, {
+          method: 'POST',
+          headers: { apikey: KEY, 'Content-Type': 'application/json', Prefer: 'return=minimal' },
+          body: JSON.stringify({ email: email }),
+        })
+          .then(function (res) {
+            if (res.ok) {
+              say("You're on the list. We'll email you when there's an update.", 'ok');
+              form.reset();
+            } else if (res.status === 409) {
+              say("You're already on the list.", 'ok');
+              form.reset();
+            } else {
+              say('Something went wrong (' + res.status + '). Try again in a minute.', 'error');
+            }
+          })
+          .catch(function () { say('No connection. Try again in a minute.', 'error'); })
+          .then(function () { button.disabled = false; });
+      });
+    })();
+  </script>
+</body>
+</html>

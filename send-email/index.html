@@ -1,0 +1,285 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>Send Update</title>
+  <meta name="theme-color" content="#12151c" />
+  <link rel="icon" href="../assets/logo-mark.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="../styles.css?v=8" />
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+  <style>
+    .admin { width: min(820px, 100% - 32px); margin: 0 auto; padding: 48px 0 72px; }
+    .admin-head { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+    .admin-head img { width: 44px; height: 44px; }
+    .admin-head h1 { font-size: clamp(1.6rem, 4vw, 2.1rem); }
+    .admin-head p { margin: 2px 0 0; color: var(--muted); font-size: 0.92rem; }
+    .admin-head .who { margin-left: auto; display: flex; align-items: center; gap: 10px; color: var(--muted); font-size: 0.9rem; }
+
+    .card { margin-top: 24px; padding: 28px; border-radius: 16px; background: var(--surface); border: 1px solid var(--line); }
+    .card h2 { font-size: 1.15rem; }
+    .card > p { margin: 8px 0 0; color: var(--muted); font-size: 0.93rem; }
+    .field { display: grid; gap: 6px; margin-top: 16px; color: var(--tagline); font-size: 0.9rem; font-weight: 600; }
+    .field input, .field textarea {
+      width: 100%;
+      padding: 11px 13px;
+      border-radius: 9px;
+      border: 1px solid var(--line);
+      background: var(--bg);
+      color: var(--text);
+      font-family: inherit; font-size: 0.97rem; line-height: 1.5;
+    }
+    .field textarea { min-height: 180px; resize: vertical; }
+    .field input:focus, .field textarea:focus { outline: 2px solid var(--accent); outline-offset: 0; border-color: transparent; }
+    .hint { margin: 8px 0 0; color: var(--muted); font-size: 0.85rem; }
+    .actions { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px; margin-top: 20px; }
+    button.btn { border: 0; cursor: pointer; font-family: inherit; }
+    .btn-plain { background: var(--surface-2); border: 1px solid var(--line) !important; color: var(--text); }
+    .btn-plain:hover { background: var(--line); }
+    .status { min-height: 1.4em; margin: 12px 0 0; font-size: 0.92rem; color: var(--muted); }
+    .status.ok { color: var(--green); }
+    .status.error { color: #ff8a93; }
+
+    .card > p.count { margin-top: 6px; color: var(--text); font: 800 3rem/1 var(--display); font-variant-numeric: tabular-nums; }
+    .table-wrap { margin-top: 16px; max-height: 420px; overflow: auto; border: 1px solid var(--line); border-radius: 12px; }
+    table { width: 100%; border-collapse: collapse; font-size: 0.93rem; }
+    th, td { padding: 10px 14px; text-align: left; border-bottom: 1px solid var(--line); }
+    th { position: sticky; top: 0; background: var(--surface); color: var(--muted); font-weight: 600; font-size: 0.85rem; }
+    td { color: var(--tagline); overflow-wrap: anywhere; }
+    tr:last-child td { border-bottom: 0; }
+    td.when { white-space: nowrap; color: var(--muted); }
+    td.act { width: 1%; }
+    .remove { padding: 5px 10px; border-radius: 7px; border: 1px solid var(--line); background: transparent; color: #ff8a93; font: inherit; font-size: 0.85rem; cursor: pointer; }
+    .remove:hover { background: rgba(255, 138, 147, 0.1); }
+    .empty { padding: 18px; color: var(--muted); text-align: center; }
+
+    .login { max-width: 420px; margin-inline: auto; }
+    [hidden] { display: none !important; }
+    @media (max-width: 560px) {
+      .card { padding: 20px; }
+      .admin-head .who { margin-left: 0; width: 100%; }
+    }
+  </style>
+</head>
+<body>
+  <main class="admin">
+    <header class="admin-head">
+      <img src="../assets/logo-mark.svg" alt="" />
+      <div>
+        <h1>Send an update</h1>
+        <p>Email everyone who signed up for PitBoard updates</p>
+      </div>
+      <div class="who" id="who" hidden>
+        <span id="who-email"></span>
+        <button type="button" class="btn btn-small btn-plain" id="sign-out">Sign out</button>
+      </div>
+    </header>
+
+    <section class="card login" id="login" hidden aria-labelledby="login-title">
+      <h2 id="login-title">Sign in</h2>
+      <p>This page is only for the PitBoard admin.</p>
+      <form id="login-form" novalidate>
+        <label class="field">Email<input name="email" type="email" autocomplete="username" required /></label>
+        <label class="field">Password<input name="password" type="password" autocomplete="current-password" required /></label>
+        <div class="actions"><button type="submit" class="btn btn-red">Sign in</button></div>
+        <p class="status" id="login-status" role="status"></p>
+      </form>
+    </section>
+
+    <section class="card" id="denied" hidden>
+      <h2>No access</h2>
+      <p>This account isn't allowed to send updates. Sign out and sign in with the admin account.</p>
+    </section>
+
+    <div id="panel" hidden>
+      <section class="card" aria-labelledby="compose-title">
+        <h2 id="compose-title">Write the update</h2>
+        <p>Opens a Gmail draft from your account with every subscriber in BCC, so they can't see each other's addresses.</p>
+        <label class="field">Subject<input id="subject" maxlength="200" value="PitBoard update" /></label>
+        <label class="field">Message<textarea id="message" placeholder="What's new in this version…"></textarea></label>
+        <p class="hint">A line telling people how to unsubscribe is added at the end.</p>
+        <div class="actions" id="send-actions"></div>
+        <p class="status" id="send-status" role="status"></p>
+      </section>
+
+      <section class="card" aria-labelledby="list-title">
+        <h2 id="list-title">Subscribers</h2>
+        <p class="count" id="count">–</p>
+        <div class="actions">
+          <button type="button" class="btn btn-small btn-plain" id="copy">Copy all addresses</button>
+          <button type="button" class="btn btn-small btn-plain" id="reload">Refresh</button>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Email</th><th>Signed up</th><th><span class="sr-only">Remove</span></th></tr></thead>
+            <tbody id="rows"></tbody>
+          </table>
+        </div>
+        <p class="status" id="list-status" role="status"></p>
+      </section>
+    </div>
+  </main>
+
+  <script>
+    (function () {
+      var SUPABASE_URL = 'https://rpkaxccjkwimirncyynt.supabase.co';
+      var KEY = 'sb_publishable_eESVbxId7MKgmXqoQs8JKA_JHhBIDd-';
+      var SIGNUP_URL = 'https://guyka2212.github.io/pitboard-website/notify/';
+      // Gmail drafts get unwieldy past this many recipients, and free Gmail allows about 500 a day.
+      var BATCH = 100;
+
+      var $ = function (id) { return document.getElementById(id); };
+      var client = window.supabase.createClient(SUPABASE_URL, KEY);
+      var me = null;
+      var subscribers = [];
+
+      function show(view) {
+        ['login', 'denied', 'panel'].forEach(function (id) { $(id).hidden = id !== view; });
+        $('who').hidden = view === 'login';
+      }
+
+      function say(id, text, kind) {
+        $(id).textContent = text;
+        $(id).className = 'status' + (kind ? ' ' + kind : '');
+      }
+
+      function start(session) {
+        if (!session) { show('login'); return; }
+        me = session.user.email;
+        $('who-email').textContent = me;
+        client.rpc('is_admin').then(function (res) {
+          if (res.error || !res.data) { show('denied'); return; }
+          show('panel');
+          loadSubscribers();
+        });
+      }
+
+      function loadSubscribers() {
+        say('list-status', 'Loading…');
+        client.from('subscribers').select('id, email, created_at').order('created_at', { ascending: false })
+          .then(function (res) {
+            if (res.error) { say('list-status', 'Could not load subscribers: ' + res.error.message, 'error'); return; }
+            subscribers = res.data;
+            renderList();
+            renderSendButtons();
+            say('list-status', '');
+          });
+      }
+
+      function renderList() {
+        $('count').textContent = subscribers.length;
+        var rows = $('rows');
+        rows.replaceChildren();
+        if (!subscribers.length) {
+          var tr = document.createElement('tr');
+          var td = document.createElement('td');
+          td.colSpan = 3; td.className = 'empty'; td.textContent = 'No one has signed up yet.';
+          tr.appendChild(td); rows.appendChild(tr);
+          return;
+        }
+        subscribers.forEach(function (s) {
+          var tr = document.createElement('tr');
+          var email = document.createElement('td'); email.textContent = s.email;
+          var when = document.createElement('td'); when.className = 'when';
+          when.textContent = new Date(s.created_at).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
+          var act = document.createElement('td'); act.className = 'act';
+          var remove = document.createElement('button');
+          remove.type = 'button'; remove.className = 'remove'; remove.textContent = 'Remove';
+          remove.addEventListener('click', function () { removeSubscriber(s); });
+          act.appendChild(remove);
+          tr.append(email, when, act);
+          rows.appendChild(tr);
+        });
+      }
+
+      function removeSubscriber(s) {
+        if (!confirm('Remove ' + s.email + ' from the list?')) return;
+        client.from('subscribers').delete().eq('id', s.id).then(function (res) {
+          if (res.error) { say('list-status', 'Could not remove: ' + res.error.message, 'error'); return; }
+          loadSubscribers();
+        });
+      }
+
+      function batches() {
+        var out = [];
+        for (var i = 0; i < subscribers.length; i += BATCH) out.push(subscribers.slice(i, i + BATCH));
+        return out;
+      }
+
+      function renderSendButtons() {
+        var box = $('send-actions');
+        box.replaceChildren();
+        if (!subscribers.length) {
+          say('send-status', 'Nobody to send to yet.');
+          return;
+        }
+        say('send-status', '');
+        var groups = batches();
+        groups.forEach(function (group, i) {
+          var b = document.createElement('button');
+          b.type = 'button';
+          b.className = 'btn btn-red';
+          b.textContent = groups.length === 1
+            ? 'Open in Gmail (' + group.length + (group.length === 1 ? ' person)' : ' people)')
+            : 'Gmail batch ' + (i + 1) + ' of ' + groups.length + ' (' + group.length + ')';
+          b.addEventListener('click', function () { openGmail(group, b); });
+          box.appendChild(b);
+        });
+      }
+
+      function openGmail(group, button) {
+        var subject = $('subject').value.trim();
+        var message = $('message').value.trim();
+        if (!subject || !message) {
+          say('send-status', 'Write a subject and a message first.', 'error');
+          ($('subject').value.trim() ? $('message') : $('subject')).focus();
+          return;
+        }
+        var body = message + '\n\n--\nYou get this because you signed up for PitBoard updates at ' + SIGNUP_URL +
+          '\nTo stop getting them, reply with "unsubscribe".';
+        var url = 'https://mail.google.com/mail/u/0/?fs=1&tf=cm' +
+          '&to=' + encodeURIComponent(me) +
+          '&bcc=' + encodeURIComponent(group.map(function (s) { return s.email; }).join(',')) +
+          '&su=' + encodeURIComponent(subject) +
+          '&body=' + encodeURIComponent(body);
+        window.open(url, '_blank', 'noopener');
+        button.classList.remove('btn-red');
+        button.classList.add('btn-plain');
+        say('send-status', 'Gmail opened. Check the draft and press Send there.', 'ok');
+      }
+
+      $('copy').addEventListener('click', function () {
+        var text = subscribers.map(function (s) { return s.email; }).join(', ');
+        navigator.clipboard.writeText(text).then(
+          function () { say('list-status', 'Copied ' + subscribers.length + ' addresses.', 'ok'); },
+          function () { say('list-status', 'Could not copy. Select the addresses in the table instead.', 'error'); }
+        );
+      });
+      $('reload').addEventListener('click', loadSubscribers);
+
+      $('login-form').addEventListener('submit', function (e) {
+        e.preventDefault();
+        var f = e.target.elements;
+        var button = e.target.querySelector('button');
+        button.disabled = true;
+        say('login-status', 'Signing in…');
+        client.auth.signInWithPassword({ email: f.email.value.trim(), password: f.password.value })
+          .then(function (res) {
+            if (res.error) { say('login-status', res.error.message, 'error'); return; }
+            f.password.value = '';
+            say('login-status', '');
+            start(res.data.session);
+          })
+          .then(function () { button.disabled = false; });
+      });
+
+      $('sign-out').addEventListener('click', function () {
+        client.auth.signOut().then(function () { me = null; subscribers = []; show('login'); });
+      });
+
+      client.auth.getSession().then(function (res) { start(res.data.session); });
+    })();
+  </script>
+</body>
+</html>

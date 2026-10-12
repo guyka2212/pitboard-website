@@ -405,7 +405,7 @@ code {
 
 @media (max-width: 720px) {
   .nav-links { display: none; }
-  .nav .btn-docs { margin-left: auto; }
+  .nav nav + .btn { margin-left: auto; }
   .btn-docs span { display: none; }
   .btn-docs::after { content: 'Docs'; }
   .section { padding: 72px 0; }
@@ -431,14 +431,13 @@ code {
 }
 
 /* Report button */
-.btn-report { gap: 8px; }
-.btn-report .btn-icon { width: 16px; height: 16px; }
+.btn-report, .btn-updates { gap: 8px; }
+.btn-report .btn-icon, .btn-updates .btn-icon { width: 16px; height: 16px; }
 button.btn { cursor: pointer; font-family: inherit; color: var(--text); }
-.nav .btn-docs + .btn-report { margin-left: 0; }
 
 @media (max-width: 720px) {
-  .btn-report span { display: none; }
-  .btn-report { padding-inline: 10px; }
+  .btn-report span, .btn-updates span { display: none; }
+  .btn-report, .btn-updates { padding-inline: 10px; }
 }
 @media (max-width: 420px) {
   .nav .brand span { display: none; }

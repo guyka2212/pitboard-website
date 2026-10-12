@@ -306,10 +306,6 @@ kbd {
   .docs-side { transition: none; }
 }
 
-@media (max-width: 720px) {
-  .nav .btn-report { margin-left: auto; }
-}
-
 /* address bar with labelled parts */
 .url-anatomy { margin: 18px 0 0; }
 .url-bar {
